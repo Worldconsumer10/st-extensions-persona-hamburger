@@ -206,6 +206,7 @@ function validateSettings(){
       }
     }
   }
+  saveFile[saveLocation]=saveData
 }
 
 async function loadSettings() {
