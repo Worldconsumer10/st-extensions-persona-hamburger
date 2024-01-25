@@ -1,11 +1,11 @@
-// The main script for the extension
-// The following are examples of some basic extension functionality
 
-//You'll likely need to import extension_settings, getContext, and loadExtensionSettings from extensions.js
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
 
-//You'll likely need to import some other functions from the main script
 import { saveSettingsDebounced } from "../../../../script.js";
+
+const defaultSettings = {
+  newDescription: ""
+};
 
 // Keep track of where your extension is located, name should match repo name
 const extensionName = "st-extension-transformations";
@@ -17,10 +17,6 @@ if (typeof(extensionSettings) == "undefined"){
 }
 
 const chatExtensionSettings = extensionSettings[getContext().getCurrentChatId()] = defaultSettings
-
-const defaultSettings = {
-  newDescription: ""
-};
 
 if (typeof chatExtensionSettings == "undefined"){
   chatExtensionSettings = defaultSettings;
@@ -36,6 +32,7 @@ async function loadSettings() {
 function onPromptInput(){
   var promptVal = $("#character_prompt_override_setting").val();
   chatExtensionSettings.newDescription = promptVal;
+  saveSettingsDebounced();
 }
 
 jQuery(async () => {
