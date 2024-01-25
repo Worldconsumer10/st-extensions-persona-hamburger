@@ -19,10 +19,12 @@ function onExampleInput(event) {
   const value = Boolean($(event.target).prop("checked"));
   extension_settings[extensionName].example_setting = value;
   saveSettingsDebounced();
-  toastr.info(
-    `The new settings will completely override your characters description`,
-    "Advanced Character Enabled"
-  );
+  if (value){
+    toastr.info(
+      `The new settings will completely override your characters description`,
+      "Advanced Character Enabled"
+    );
+  }
 }
 
 jQuery(async () => {
