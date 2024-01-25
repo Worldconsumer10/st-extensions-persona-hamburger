@@ -247,9 +247,15 @@ function onTextChanged(){
 function toggleTransformed(){
   setCharTransformed(!saveFile[getSaveLocation()].char_trans)
 }
-
+var lastCheck = {}
+function runUpdateCheck(){
+  if (lastCheck != saveFile){
+    lastCheck=saveFile
+    updateSettingsSave()
+  }
+}
 setInterval(() => {
-  updateSettingsSave()
+  runUpdateCheck()
 }, 100);
 
 getSettingsSave()
