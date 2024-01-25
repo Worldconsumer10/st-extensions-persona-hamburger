@@ -297,6 +297,16 @@ function runUpdateCheck(){
     updateSettingsSave()
   }
 }
+
+function onForceRevert(){
+  saveFile[getSaveLocation()].char_trans=false
+  reset()
+  toastr.warning(
+    `This did not force revert your character in context, this only made the script believe the character is not transformed`,
+    "Force Reverted!"
+  )
+}
+
 setInterval(() => {
   runUpdateCheck()
 }, 100);
@@ -322,6 +332,7 @@ function reset(wasInit){
   
     $("#adv_character_setting").on("input", onAdvPlayerInput);
     $("#adv_triggers_setting").on("input", onAdvInputsInput);
+    $("#force_revert_setting").on("input", onForceRevert);
 
     const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
     const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
