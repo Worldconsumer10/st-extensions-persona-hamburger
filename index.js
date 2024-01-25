@@ -4,8 +4,6 @@ import { saveSettingsDebounced,eventSource,event_types } from "../../../../scrip
 
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
-advanced_inputs_enabled = false
-
 function getSaveLocation(){
   var context = getContext()
   if (context == null || context == undefined){
@@ -23,7 +21,7 @@ function handleIncomingMessage(){
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
       toastr.info("New Message Recieved!","Message Recieved")
-      if (advanced_inputs_enabled){
+      if (extension_settings[getSaveLocation()].adv_inputs){
         var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
         var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
         toastr.info("Regex Result",`${new RegExp(startregexPattern).test(newMessage)}`)
