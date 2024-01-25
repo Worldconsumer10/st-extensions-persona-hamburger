@@ -255,14 +255,18 @@ function setCharTransformed(state){
   saveFile.char_trans = state;
 }
 function onTextChanged(){
-  if (advanced_inputs){
+  if (saveFile.adv_inputs){
     list_start_keys = $("start_trigger_settings").val()
     list_end_keys = $("end_trigger_settings").val()
+    console.log("New Data: "+saveFile)
     saveFile.start_keys = list_start_keys
     saveFile.end_keys = list_end_keys
+    updateSettingsSave()
   } else {
     list_basic_keys = $("basic_trigger_settings").val()
     saveFile.basic_keys = list_basic_keys
+    updateSettingsSave()
+    console.log("New Data: "+saveFile)
   }
 }
 function toggleTransformed(){
