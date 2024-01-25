@@ -35,10 +35,6 @@ function onAdvInputsInput(event) {
   extension_settings[extensionName].adv_inputs = value;
   saveSettingsDebounced();
   if (value){
-    toastr.info(
-      `The new settings will completely override your characters description`,
-      "Advanced Character Enabled"
-    );
     reset()
   } else {
     reset()
@@ -56,6 +52,7 @@ function reset(wasInit){
   
     $("#adv_character_setting").on("input", onAdvPlayerInput);
     $("#adv_triggers_setting").on("input", onAdvInputsInput);
+    
     const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
     const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
     const tranTrigAdvancedStart = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggersstart.html`);
