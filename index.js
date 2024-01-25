@@ -116,7 +116,7 @@ async function loadSettings() {
   if (Object.keys(extension_settings[extensionName]).length === 0) {
     Object.assign(extension_settings[extensionName], defaultSettings);
   }
-  advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;
+  try{advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;}catch(e){}
   $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character);
   $("#adv_triggers_setting").prop("checked", extension_settings[extensionName].adv_inputs);
 }
@@ -138,7 +138,7 @@ function onAdvPlayerInput(event) {
 function onAdvInputsInput(event) {
   const value = Boolean($(event.target).prop("checked"));
   extension_settings[extensionName].adv_inputs = value;
-  advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;
+  try{advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;}catch(e){}
   saveSettingsDebounced();
   if (value){
     reset()
