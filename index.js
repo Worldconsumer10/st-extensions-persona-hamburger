@@ -6,6 +6,16 @@ eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
 advanced_inputs_enabled = false
 
+function getSaveLocation(){
+  var context = getContext()
+  if (context == null || context == undefined){
+    return extensionName;
+  } else if (context.chatId == null || context.chatId == undefined){
+    return extensionName;
+  }
+  return extensionName + context.chatId;
+}
+
 function handleIncomingMessage(){
   try{
     const context = getContext();
@@ -109,7 +119,6 @@ function getLastElement(t){
 
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
-const extensionSettings = extension_settings[extensionName];
 const defaultSettings = {
   adv_character: false,
   adv_inputs: false,
@@ -117,22 +126,23 @@ const defaultSettings = {
   end_keys:"",
   basic_keys:""
 };
+
 async function loadSettings() {
-  extension_settings[extensionName] = extension_settings[extensionName] || {};
-  if (Object.keys(extension_settings[extensionName]).length === 0) {
-    Object.assign(extension_settings[extensionName], defaultSettings);
+  extension_settings[getSaveLocation()] = extension_settings[getSaveLocation()] || {};
+  if (Object.keys(extension_settings[getSaveLocation()]).length === 0) {
+    Object.assign(extension_settings[getSaveLocation()], defaultSettings);
   }
-  try{advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;}catch(e){}
-  $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character);
-  $("#adv_triggers_setting").prop("checked", extension_settings[extensionName].adv_inputs);
-  $("#basic_triggers_setting").prop("value", extension_settings[extensionName].basic_keys);
-  $("#start_triggers_setting").prop("value", extension_settings[extensionName].start_keys);
-  $("#end_triggers_setting").prop("value", extension_settings[extensionName].end_keys);
+  try{advanced_inputs_enabled = extension_settings[getSaveLocation()].adv_inputs;}catch(e){}
+  $("#adv_character_setting").prop("checked", extension_settings[getSaveLocation()].adv_character);
+  $("#adv_triggers_setting").prop("checked", extension_settings[getSaveLocation()].adv_inputs);
+  $("#basic_triggers_setting").prop("value", extension_settings[getSaveLocation()].basic_keys);
+  $("#start_triggers_setting").prop("value", extension_settings[getSaveLocation()].start_keys);
+  $("#end_triggers_setting").prop("value", extension_settings[getSaveLocation()].end_keys);
 }
 
 function onAdvPlayerInput(event) {
   const value = Boolean($(event.target).prop("checked"));
-  extension_settings[extensionName].adv_character = value;
+  extension_settings[getSaveLocation()].adv_character = value;
   saveSettingsDebounced();
   if (value){
     toastr.info(
@@ -146,7 +156,7 @@ function onAdvPlayerInput(event) {
 }
 function onAdvInputsInput(event) {
   const value = Boolean($(event.target).prop("checked"));
-  extension_settings[extensionName].adv_inputs = value;
+  extension_settings[getSaveLocation()].adv_inputs = value;
   try{advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;}catch(e){}
   saveSettingsDebounced();
   if (value){
@@ -157,10 +167,10 @@ function onAdvInputsInput(event) {
 }
 
 function setCharTransformed(state){
-  extension_settings[extensionName].char_trans = state;
+  extension_settings[getSaveLocation()].char_trans = state;
 }
 function toggleTransformed(){
-  setCharTransformed(!extension_settings[extensionName].char_trans)
+  setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
 }
 
 reset(true)
