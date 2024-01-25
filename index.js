@@ -19,19 +19,15 @@ function onExampleInput(event) {
   const value = Boolean($(event.target).prop("checked"));
   extension_settings[extensionName].example_setting = value;
   saveSettingsDebounced();
-}
-
-function onButtonClick() {
   toastr.info(
-    `The checkbox is ${extension_settings[extensionName].example_setting ? "checked" : "not checked"}`,
-    "A popup appeared because you clicked the button!"
+    `The new settings will completely override your characters description`,
+    "Advanced Character Enabled"
   );
 }
 
 jQuery(async () => {
   const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   $("#extensions_settings").append(settingsHtml);
-  $("#my_button").on("click", onButtonClick);
   $("#advanced_character").on("input", onExampleInput);
   loadSettings();
 });
