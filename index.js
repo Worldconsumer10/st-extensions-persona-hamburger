@@ -31,6 +31,7 @@ function onButtonClick() {
 jQuery(async () => {
   const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   $("#extensions_settings").append(settingsHtml);
+  $("#my_button").on("click", onButtonClick);
   $("#advanced_character").on("input", onExampleInput);
   loadSettings();
 });
