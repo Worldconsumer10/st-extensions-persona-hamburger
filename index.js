@@ -47,6 +47,7 @@ function reset(){
       $("#extensions_settings").append(noChatSettingsHtml);
     } else {
       $("#extensions_settings").append(settingsHtml);
+      $("#chat_id").val(currentChat)
     }
   
     $("#character_prompt_override_setting").on("input",onPromptInput)
