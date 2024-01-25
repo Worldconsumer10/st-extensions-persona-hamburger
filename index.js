@@ -48,11 +48,14 @@ function reset(){
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/main.html`);
     const noChatSettingsHtml = await $.get(`${extensionFolderPath}/noChat.html`);
+    const groupChatSettingsHtml = await $.get(`${extensionFolderPath}/groupChat.html`);
   
     $("#transformation_extension_tab").remove()
 
     if (typeof currentChat == "undefined"){
       $("#extensions_settings").append(noChatSettingsHtml);
+    } else if (currentChat.characters.length > 1){
+      $("#extensions_settings").append(groupChatSettingsHtml);
     } else {
       $("#extensions_settings").append(settingsHtml);
       $("#chat_id").text("Current Chat: "+currentChat)
