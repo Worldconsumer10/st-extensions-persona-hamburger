@@ -35,11 +35,6 @@ jQuery(async () => {
 
   const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
   const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
-  var v = $("#extensions_settings").find(settingsHtml);
-  if (v!=null || v!=undefined)
-  {
-    v.remove()
-  }
 
   $("#extensions_settings").append(settingsHtml);
 
