@@ -2,8 +2,11 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 
 import { saveSettingsDebounced,eventSource,event_types } from "../../../../script.js";
 
+const saveFile = {}
+
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
+const extensionCachePath = `${extensionFolderPath}/cache/`
 const defaultSettings = {
   adv_character: false,
   adv_inputs: false,
@@ -12,6 +15,28 @@ const defaultSettings = {
   basic_keys:"",
   char_trans:true
 };
+
+const fs = require('fs')
+
+function updateSettingsSave(){
+  saveFile.forEach((entry,index) => {
+    fs.writeFile(extensionCachePath+index,JSON.stringify(entry),function(err){if(err){console.log(err)}});
+  });
+}
+
+function getSettingsSave(){
+  fs.readdir(extensionCachePath,function(err,files){
+    if (err){console.log(err);return;}
+    files.forEach(filePath => {
+      var index = filePath.split("/").reverse()[1]
+      console.log(index)
+      fs.readFile(filePath,function(err,data){
+        if (err){console.log(err);return;}
+        saveFile[index]=data
+      })
+    });
+  })
+}
 
 var advanced_character = false
 var advanced_inputs = false
@@ -34,12 +59,12 @@ function getSaveLocation(){
 }
 function getValue(value, defaultValue) {
   var saveLocation = getSaveLocation()
-  if (extension_settings[saveLocation] == null || extension_settings[saveLocation] == undefined) {
+  if (saveFile[saveLocation] == null || saveFile[saveLocation] == undefined) {
       return defaultValue;
-  } else if (extension_settings[saveLocation][value] == null || extension_settings[saveLocation][value] == undefined) {
+  } else if (saveFile[saveLocation][value] == null || saveFile[saveLocation][value] == undefined) {
       return defaultValue;
   }
-  return extension_settings[saveLocation][value];
+  return saveFile[saveLocation][value];
 }
 
 //Self Note: extension_settings[getSaveLocation()].adv_inputs is erroring somewhere
@@ -77,7 +102,7 @@ function handleIncomingMessage(){
 }
 
 function getStartTerms(){
-  if (extension_settings[extensionName].adv_inputs){
+  if (saveFile[getSaveLocation()].adv_inputs){
     var result = $("#start_trigger_settings").val()
     return result.split(",");
   } else {
@@ -87,7 +112,7 @@ function getStartTerms(){
 }
 async function getEndTerms(){
   
-  if (extension_settings[extensionName].adv_inputs){
+  if (saveFile[getSaveLocation()].adv_inputs){
     var result = $("#end_trigger_settings").val()
     return result.split(",");
   } else {
@@ -105,7 +130,7 @@ function getBasicTransforms(){
       str = str + "|" + element.trim()
     }
   });
-  if (extension_settings[extensionName].adv_inputs){
+  if (saveFile[getSaveLocation()].adv_inputs){
     $("#end_trigger_settings").val().split(",").forEach(element => {
       if (str == ""){
         str = element.trim()
@@ -148,19 +173,16 @@ function getLastElement(t){
 }
 async function loadSettings() {
   var saveLocation = getSaveLocation();
-  extension_settings[saveLocation] = extension_settings[saveLocation] || {};
-  if (Object.keys(extension_settings[saveLocation]).length === 0) {
-    Object.assign(extension_settings[saveLocation], defaultSettings);
-  } else {
-    await loadSettings(extension_settings,false)
+  if (Object.keys(saveFile[saveLocation]).length === 0) {
+    Object.assign(saveFile[saveLocation], defaultSettings);
   }
 
-  advanced_character = extension_settings[saveLocation].adv_character
-  advanced_inputs = extension_settings[saveLocation].adv_inputs
-  list_basic_keys = extension_settings[saveLocation].basic_keys
-  list_start_keys = extension_settings[saveLocation].start_keys
-  list_end_keys = extension_settings[saveLocation].adv_character
-  character_trans = extension_settings[saveLocation].char_trans
+  advanced_character = saveFile[saveLocation].adv_character
+  advanced_inputs = saveFile[saveLocation].adv_inputs
+  list_basic_keys = saveFile[saveLocation].basic_keys
+  list_start_keys = saveFile[saveLocation].start_keys
+  list_end_keys = saveFile[saveLocation].adv_character
+  character_trans = saveFile[saveLocation].char_trans
 
   console.log(
     `Loaded Settings:\nAdvanced Character Enabled: ${advanced_character}\n`+
@@ -170,7 +192,6 @@ async function loadSettings() {
     `End Keys: ${advanced_character}\n`+
     `Character Transformed: ${character_trans}`
   )
-
 
   $("#adv_character_setting").prop("checked", advanced_character);
   $("#adv_triggers_setting").prop("checked", advanced_inputs);
@@ -182,7 +203,7 @@ async function loadSettings() {
 function onAdvPlayerInput(event) {
   var saveLocation = getSaveLocation()
   const value = Boolean($(event.target).prop("checked"));
-  extension_settings[saveLocation].adv_character = value;
+  saveFile[saveLocation].adv_character = value;
   advanced_character = value
   saveSettingsDebounced();
   if (value){
@@ -198,7 +219,7 @@ function onAdvPlayerInput(event) {
 function onAdvInputsInput(event) {
   var saveLocation = getSaveLocation()
   const value = Boolean($(event.target).prop("checked"));
-  extension_settings[saveLocation].adv_inputs = value;
+  saveFile[saveLocation].adv_inputs = value;
   advanced_inputs = value;
   saveSettingsDebounced();
   if (value){
@@ -209,26 +230,32 @@ function onAdvInputsInput(event) {
 }
 
 function setCharTransformed(state){
-  extension_settings[getSaveLocation()].char_trans = state;
+  saveFile[getSaveLocation()].char_trans = state;
 }
 function onTextChanged(){
   var saveLocation = getSaveLocation();
   if (advanced_inputs){
     list_start_keys = $("start_trigger_settings").val()
     list_end_keys = $("end_trigger_settings").val()
-    extension_settings[saveLocation].start_keys = list_start_keys
-    extension_settings[saveLocation].end_keys = list_end_keys
+    saveFile[saveLocation].start_keys = list_start_keys
+    saveFile[saveLocation].end_keys = list_end_keys
   } else {
     list_basic_keys = $("basic_trigger_settings").val()
-    extension_settings[saveLocation].basic_keys = list_basic_keys
+    saveFile[saveLocation].basic_keys = list_basic_keys
   }
 }
 function toggleTransformed(){
-  setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
+  setCharTransformed(!saveFile[getSaveLocation()].char_trans)
 }
-console.log(extension_settings)
+
+setInterval(() => {
+  updateSettingsSave()
+}, 100);
+
+getSettingsSave()
 
 reset(true)
+
 function reset(wasInit){
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
@@ -249,13 +276,13 @@ function reset(wasInit){
     const charTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/chartrans.html`);
     const charNotTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/charnorm.html`);
 
-    if (extension_settings[getSaveLocation()].char_trans){
+    if (saveFile[getSaveLocation()].char_trans){
       $("#table_container").append(charTransformed);
     } else {
       $("#table_container").append(charNotTransformed);
     }
 
-    if (extension_settings[getSaveLocation()].adv_inputs){
+    if (saveFile[getSaveLocation()].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
       $("#start_trigger_settings").on("input",onTextChanged)
@@ -268,7 +295,7 @@ function reset(wasInit){
       $("#basic_trigger_settings").prop("value",extension_settings[saveLocation].basic_keys)
     }
 
-    if (extension_settings[getSaveLocation()].adv_character)
+    if (saveFile[getSaveLocation()].adv_character)
     {
       $("#table_container").append(tranAdv);
     } else {
