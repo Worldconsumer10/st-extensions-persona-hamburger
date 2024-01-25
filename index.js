@@ -54,7 +54,7 @@ function reset(){
 
     var context = getContext()
 
-    console.log(context)
+    console.log(context.chat)
 
     if (typeof currentChat == "undefined"){
       $("#extensions_settings").append(noChatSettingsHtml);
