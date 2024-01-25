@@ -11,53 +11,38 @@ import { saveSettingsDebounced } from "../../../../script.js";
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 const extensionSettings = extension_settings[extensionName];
-const defaultSettings = {};
 
+if (typeof(extensionSettings) == "undefined"){
+  Object.assign(extensionSettings,{})
+}
 
- 
-// Loads the extension settings if they exist, otherwise initializes them to the defaults.
+const chatExtensionSettings = extensionSettings[getContext().getCurrentChatId()] = defaultSettings
+
+const defaultSettings = {
+  newDescription: ""
+};
+
+if (typeof chatExtensionSettings == "undefined"){
+  chatExtensionSettings = defaultSettings;
+}
+
 async function loadSettings() {
-  //Create the settings if they don't exist
-  extension_settings[extensionName] = extension_settings[extensionName] || {};
-  if (Object.keys(extension_settings[extensionName]).length === 0) {
-    Object.assign(extension_settings[extensionName], defaultSettings);
-  }
+  //Load the settings
 
-  // Updating settings in the UI
-  $("#example_setting").prop("checked", extension_settings[extensionName].example_setting).trigger("input");
+  $("#character_prompt_override_setting").val(chatExtensionSettings.newDescription)
+
 }
 
-// This function is called when the extension settings are changed in the UI
-function onExampleInput(event) {
-  const value = Boolean($(event.target).prop("checked"));
-  extension_settings[extensionName].example_setting = value;
-  saveSettingsDebounced();
+function onPromptInput(){
+  var promptVal = $("#character_prompt_override_setting").val();
+  chatExtensionSettings.newDescription = promptVal;
 }
 
-// This function is called when the button is clicked
-function onButtonClick() {
-  // You can do whatever you want here
-  // Let's make a popup appear with the checked setting
-  toastr.info(
-    `The checkbox is ${extension_settings[extensionName].example_setting ? "checked" : "not checked"}`,
-    "A popup appeared because you clicked the button!"
-  );
-}
-
-// This function is called when the extension is loaded
 jQuery(async () => {
-  // This is an example of loading HTML from a file
   const settingsHtml = await $.get(`${extensionFolderPath}/main.html`);
-
-  // Append settingsHtml to extensions_settings
-  // extension_settings and extensions_settings2 are the left and right columns of the settings menu
-  // Left should be extensions that deal with system functions and right should be visual/UI related 
   $("#extensions_settings").append(settingsHtml);
 
-  // These are examples of listening for events
-  $("#my_button").on("click", onButtonClick);
-  $("#example_setting").on("input", onExampleInput);
+  $("#character_prompt_override_setting").on("input",onPromptInput)
 
-  // Load settings when starting things up (if you have any)
   loadSettings();
 });
