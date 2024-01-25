@@ -10,7 +10,7 @@ function handleIncomingMessage(){
   const context = getContext();
   const chat = context.chat;
   toastr.info(
-    `${chat[1]}`,
+    `${chat[1].mes}`,
     "Advanced Character Enabled"
   );
 }
