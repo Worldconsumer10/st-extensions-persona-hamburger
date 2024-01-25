@@ -151,6 +151,8 @@ async function loadSettings() {
   extension_settings[saveLocation] = extension_settings[saveLocation] || {};
   if (Object.keys(extension_settings[saveLocation]).length === 0) {
     Object.assign(extension_settings[saveLocation], defaultSettings);
+  } else {
+    await loadSettings(extension_settings,false)
   }
 
   advanced_character = extension_settings[saveLocation].adv_character
@@ -211,7 +213,7 @@ function setCharTransformed(state){
 }
 function onTextChanged(){
   var saveLocation = getSaveLocation();
-  if (extension_settings[saveLocation].adv_inputs){
+  if (advanced_inputs){
     list_start_keys = $("start_trigger_settings").val()
     list_end_keys = $("end_trigger_settings").val()
     extension_settings[saveLocation].start_keys = list_start_keys
@@ -224,7 +226,6 @@ function onTextChanged(){
 function toggleTransformed(){
   setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
 }
-await loadExtensionSettings({}, false);
 
 reset(true)
 function reset(wasInit){
