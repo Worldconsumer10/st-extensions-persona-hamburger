@@ -24,6 +24,7 @@ function saveSettings(){
   extensionSettings[getContext().getCurrentChatId()] = chatExtensionSettings
   extension_settings = extensionSettings;
   saveSettingsDebounced()
+  console.log(chatExtensionSettings)
 }
 
 if (typeof chatExtensionSettings == "undefined"){
