@@ -41,6 +41,8 @@ function reset(){
     const settingsHtml = await $.get(`${extensionFolderPath}/main.html`);
     const noChatSettingsHtml = await $.get(`${extensionFolderPath}/noChat.html`);
   
+    $("#transformation_extension_tab").remove()
+
     if (typeof currentChat == "undefined"){
       $("#extensions_settings").append(noChatSettingsHtml);
     } else {
