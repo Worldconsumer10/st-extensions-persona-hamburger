@@ -6,9 +6,11 @@ import { saveSettingsDebounced,eventSource,event_types } from "../../../../scrip
 
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
-function handleIncomingMessage(data){
+function handleIncomingMessage(){
+  const context = getContext();
+  const chat = context.chat;
   toastr.info(
-    `${data}`,
+    `${chat}`,
     "Advanced Character Enabled"
   );
 }
