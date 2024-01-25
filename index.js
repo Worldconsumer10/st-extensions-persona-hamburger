@@ -9,10 +9,19 @@ eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 function handleIncomingMessage(){
   const context = getContext();
   const chat = context.chat;
+  const newMessage = getLastElement(chat)
   toastr.info(
-    `${chat[1].mes}`,
+    `${newMessage}`,
     "Advanced Character Enabled"
   );
+}
+
+function getLastElement(t){
+  var val = t[1]
+  t.forEach(element => {
+    val=element;
+  });
+  return val;
 }
 
 const extensionName = "st-extension-transformations";
