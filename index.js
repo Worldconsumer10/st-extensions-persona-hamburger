@@ -12,7 +12,7 @@ async function loadSettings() {
   if (Object.keys(extension_settings[extensionName]).length === 0) {
     Object.assign(extension_settings[extensionName], defaultSettings);
   }
-  $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character).trigger("input");
+  $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character);
 }
 
 function onExampleInput(event) {
