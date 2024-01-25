@@ -56,7 +56,7 @@ function reset(){
 
     if (typeof currentChat == "undefined"){
       $("#extensions_settings").append(noChatSettingsHtml);
-    } else if (context.name2 > 2){
+    } else if (context.name2 == "" || context.name2 == " "){
       $("#extensions_settings").append(groupChatSettingsHtml);
     } else {
       $("#extensions_settings").append(settingsHtml);
