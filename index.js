@@ -36,6 +36,8 @@ jQuery(async () => {
   const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
   const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
 
+  $("#transformation_extension_tab").remove();
+
   $("#extensions_settings").append(settingsHtml);
 
   $("#adv_character_setting").on("input", onExampleInput);
