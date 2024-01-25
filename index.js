@@ -256,8 +256,8 @@ function setCharTransformed(state){
 }
 function onTextChanged(){
   if (saveFile.adv_inputs){
-    list_start_keys = $("start_trigger_settings").val()
-    list_end_keys = $("end_trigger_settings").val()
+    list_start_keys = $("start_trigger_settings")
+    list_end_keys = $("end_trigger_settings")
 
     console.log(list_start_keys)
     console.log(list_end_keys)
@@ -266,7 +266,7 @@ function onTextChanged(){
     saveFile.end_keys = list_end_keys
     updateSettingsSave()
   } else {
-    list_basic_keys = $("basic_trigger_settings").val()
+    list_basic_keys = $("basic_trigger_settings")
 
     console.log(list_basic_keys)
 
