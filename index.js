@@ -24,6 +24,11 @@ function onChatChanged(){
 
 async function loadSettings() {
   if (typeof currentChat == "undefined"){return;}
+
+  if (Object.keys(extensionSettings[currentChat]).length == 0){
+    extensionSettings[currentChat] = defaultSettings;
+  }
+
   $("#character_prompt_override_setting").val(extensionSettings[currentChat].newDescription)
 
 }
