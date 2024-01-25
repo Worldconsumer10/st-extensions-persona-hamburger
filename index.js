@@ -6,7 +6,7 @@ const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 const extensionSettings = extension_settings[extensionName];
 const defaultSettings = {};
-var transformWord = []
+var formCreated = false;
 
 async function loadSettings() {
   extension_settings[extensionName] = extension_settings[extensionName] || {};
@@ -35,6 +35,12 @@ function reset(advanced_character){
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
+    if (formCreated){
+      $("#transformation_extension_tab").remove();
+    }
+
+    formCreated=true
+
     $("#extensions_settings").append(settingsHtml);
   
     $("#adv_character_setting").on("input", onExampleInput);
