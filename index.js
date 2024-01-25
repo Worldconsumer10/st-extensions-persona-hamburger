@@ -10,8 +10,6 @@ var basicTermsStr = ""
 
 function handleIncomingMessage(){
   try{
-    var result = $("#end_trigger_settings").val()
-    toastr.info(result,"test")
     const context = getContext();
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
@@ -38,16 +36,21 @@ function handleIncomingMessage(){
 
 function getStartTerms(){
   if (extension_settings[extensionName].adv_inputs){
-    return startTermsStr.split(",");
+    var result = $("#start_trigger_settings").val()
+    return result.split(",");
   } else {
-    return basicTermsStr.split(",");
+    var result = $("#basic_trigger_settings").val()
+    return result.split(",");
   }
 }
 async function getEndTerms(){
+  
   if (extension_settings[extensionName].adv_inputs){
-    return endTermsStr.split(",");
+    var result = $("#end_trigger_settings").val()
+    return result.split(",");
   } else {
-    return basicTermsStr.split(",");
+    var result = $("#basic_trigger_settings").val()
+    return result.split(",");
   }
 }
 
