@@ -6,6 +6,7 @@ const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 const extensionSettings = extension_settings[extensionName];
 const defaultSettings = {};
+var transformWord = []
 
 async function loadSettings() {
   extension_settings[extensionName] = extension_settings[extensionName] || {};
@@ -31,10 +32,12 @@ jQuery(async () => {
   const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
 
 
+  const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
   const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
 
   $("#extensions_settings").append(settingsHtml);
   $("#adv_character_setting").on("input", onExampleInput);
+  $("#table_container").append(tranTrigBasic);
   $("#table_container").append(tranBasic);
   loadSettings();
 });
