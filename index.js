@@ -14,14 +14,18 @@ function handleIncomingMessage(){
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
+      toastr.info("New Message Recieved!","Message Recieved")
       if (!extension_settings[extensionName].adv_inputs){
         var regexPattern = `/([^a-zA-Z0-9]|^)(?:${getBasicTransforms()})([^a-zA-Z0-9]|$)/`;
+        toastr.info("Regex Result",`${new RegExp(regexPattern).test(newMessage)}`)
         if (new RegExp(regexPattern).test(newMessage)) {
           toggleTransformed()
         }
       } else {
         var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
         var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
+        toastr.info("Regex Result",`${new RegExp(startregexPattern).test(newMessage)}`)
+        toastr.info("Regex Result",`${new RegExp(endregexPattern).test(newMessage)}`)
         if (new RegExp(startregexPattern).test(newMessage)) {
           setCharTransformed(true)
         } else if (new RegExp(endregexPattern).test(newMessage)){
@@ -145,17 +149,6 @@ function onAdvInputsInput(event) {
 
 function setCharTransformed(state){
   extension_settings[extensionName].char_trans = state;
-  if (state){
-    toastr.info(
-      `Transformation detected!`,
-      "Character Transformed"
-    )
-  } else {
-    toastr.info(
-      `Transformation Undone Phrase detected!`,
-      "Character Reverted"
-    )
-  }
 }
 function toggleTransformed(){
   setCharTransformed(!extension_settings[extensionName].char_trans)
