@@ -162,7 +162,7 @@ async function loadSettings() {
 
   toastr.info(
     `Advanced Character Enabled: ${advanced_character}\n`+
-    `Advanced Input Enabled: ${advanced_character}\n`+
+    `Advanced Input Enabled: ${advanced_inputs}\n`+
     `Basic Keys: ${advanced_character}\n`+
     `Start Keys: ${advanced_character}\n`+
     `End Keys: ${advanced_character}\n`+
@@ -171,11 +171,11 @@ async function loadSettings() {
   )
 
 
-  $("#adv_character_setting").prop("checked", extension_settings[saveLocation].adv_character);
-  $("#adv_triggers_setting").prop("checked", extension_settings[saveLocation].adv_inputs);
-  $("#basic_triggers_setting").prop("value", extension_settings[saveLocation].basic_keys);
-  $("#start_triggers_setting").prop("value", extension_settings[saveLocation].start_keys);
-  $("#end_triggers_setting").prop("value", extension_settings[saveLocation].end_keys);
+  $("#adv_character_setting").prop("checked", advanced_character);
+  $("#adv_triggers_setting").prop("checked", advanced_inputs);
+  $("#basic_triggers_setting").prop("value", list_basic_keys);
+  $("#start_triggers_setting").prop("value", list_start_keys);
+  $("#end_triggers_setting").prop("value", list_end_keys);
 }
 
 function onAdvPlayerInput(event) {
