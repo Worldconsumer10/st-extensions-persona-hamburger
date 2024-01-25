@@ -8,12 +8,6 @@ const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 const extensionSettings = extension_settings[extensionName];
 const defaultSettings = {};
-
-eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
-
-function handleIncomingMessage(){
-}
-
 async function loadSettings() {
   extension_settings[extensionName] = extension_settings[extensionName] || {};
   if (Object.keys(extension_settings[extensionName]).length === 0) {
