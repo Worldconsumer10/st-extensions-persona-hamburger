@@ -37,18 +37,18 @@ function getValue(value,defaultValue){
 //Self Note: extension_settings[getSaveLocation()].adv_inputs is erroring somewhere
 
 function handleIncomingMessage(){
-  console.log("Incoming Message")
   try{
     const context = getContext();
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
+      console.log("Incoming Message")
       toastr.info(`New Message Recieved!\nAdvanced Inputs?: ${extension_settings[getSaveLocation()].adv_inputs}`,"Message Recieved")
       if (extension_settings[getSaveLocation()].adv_inputs){
         var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
         var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
-        toastr.info("Regex Result",`${new RegExp(startregexPattern).test(newMessage)}`)
-        toastr.info("Regex Result",`${new RegExp(endregexPattern).test(newMessage)}`)
+        console.log(`${new RegExp(startregexPattern).test(newMessage)}`)
+        console.log(`${new RegExp(endregexPattern).test(newMessage)}`)
         if (new RegExp(startregexPattern).test(newMessage)) {
           setCharTransformed(true)
         } else if (new RegExp(endregexPattern).test(newMessage)){
@@ -56,7 +56,7 @@ function handleIncomingMessage(){
         }
       } else {
         var regexPattern = `/([^a-zA-Z0-9]|^)(?:${getBasicTransforms()})([^a-zA-Z0-9]|$)/`;
-        toastr.info("Regex Result",`${new RegExp(regexPattern).test(newMessage)}`)
+        console.log(`${new RegExp(regexPattern).test(newMessage)}`)
         if (new RegExp(regexPattern).test(newMessage)) {
           toggleTransformed()
         }
