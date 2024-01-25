@@ -35,10 +35,6 @@ function reset(advanced_character){
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
-  
-  
-    $("#transformation_extension_tab").remove();
-  
     $("#extensions_settings").append(settingsHtml);
   
     $("#adv_character_setting").on("input", onExampleInput);
