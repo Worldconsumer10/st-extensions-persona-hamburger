@@ -26,12 +26,12 @@ function onExampleInput(event) {
       "Advanced Character Enabled"
     );
   } else {
-    reset()
+    reset(value)
   }
 }
 
-reset()
-function reset(){
+reset(false)
+function reset(advanced_character){
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
@@ -46,7 +46,7 @@ function reset(){
     const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
     const tranTrigAdvanced = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggers.html`);
 
-    if (extension_settings[extensionName].adv_character == true)
+    if (advanced_character)
     {
       $("#table_container").append(tranTrigAdvanced);
       toastr.info(
