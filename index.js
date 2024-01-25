@@ -24,6 +24,7 @@ function onExampleInput(event) {
       `The new settings will completely override your characters description`,
       "Advanced Character Enabled"
     );
+    reset(true)
   }
 }
 
