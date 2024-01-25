@@ -44,7 +44,7 @@ function handleIncomingMessage(){
     if (newMessage != "..."){
       console.log("Incoming Message")
       toastr.info(`New Message Recieved!\nAdvanced Inputs?: ${extension_settings[getSaveLocation()].adv_inputs}`,"Message Recieved")
-      if (extension_settings[getSaveLocation()].adv_inputs){
+      if (getValue(adv_inputs,false)){
         var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
         var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
         console.log(`${new RegExp(startregexPattern).test(newMessage)}`)
