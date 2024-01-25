@@ -219,8 +219,6 @@ async function loadSettings() {
     validateSettings();
   }
 
-  console.log(saveFile)
-
   advanced_character = saveFile[saveLocation].adv_character
   advanced_inputs = saveFile[saveLocation].adv_inputs
   list_basic_keys = saveFile[saveLocation].basic_keys
@@ -302,7 +300,8 @@ setInterval(() => {
   runUpdateCheck()
 }, 100);
 
-getSettingsSave()
+getSettingsSave();
+validateSettings();
 
 reset(true)
 
