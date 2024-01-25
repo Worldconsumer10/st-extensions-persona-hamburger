@@ -1,11 +1,19 @@
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
 
+import { eventSource, event_types } from "../../../script.js";
+
 import { saveSettingsDebounced } from "../../../../script.js";
 
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 const extensionSettings = extension_settings[extensionName];
 const defaultSettings = {};
+
+eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
+
+function handleIncomingMessage(data){
+  console.log(data)
+}
 
 async function loadSettings() {
   extension_settings[extensionName] = extension_settings[extensionName] || {};
