@@ -10,6 +10,8 @@ var basicTermsStr = ""
 
 function handleIncomingMessage(){
   try{
+    var result = $("#end_trigger_settings").val()
+    toastr.info(result,"test")
     const context = getContext();
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
@@ -43,8 +45,6 @@ function getStartTerms(){
 }
 async function getEndTerms(){
   if (extension_settings[extensionName].adv_inputs){
-    var result = $("#end_trigger_settings").get("value")
-    toastr.info(result,"test")
     return endTermsStr.split(",");
   } else {
     return basicTermsStr.split(",");
