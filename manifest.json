@@ -7,6 +7,9 @@
     "css": "style.css",
     "author": "Ubunifu",
     "version": "1.0.0",
+    "permissions": [
+        "storage"
+    ],
     "homePage": "https://github.com/Worldconsumer10/st-extension-transformations",
     "auto_update": true
 }

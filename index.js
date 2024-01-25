@@ -16,26 +16,33 @@ const defaultSettings = {
   char_trans:true
 };
 
-const fs = require('fs')
-
 function updateSettingsSave(){
-  saveFile.forEach((entry,index) => {
-    fs.writeFile(extensionCachePath+index,JSON.stringify(entry),function(err){if(err){console.log(err)}});
-  });
+  if (typeof chrome != "undefined" && chrome.storage){
+    chrome.storage.local.set({ 'extensionCachePath': saveFile }, function() {
+      console.log('Settings saved successfully using chrome.storage.');
+    });
+  } else if (typeof localStorage !== 'undefined') {
+    // Other browsers supporting localStorage
+    localStorage.setItem('extensionCachePath', JSON.stringify(saveFile));
+    console.log('Settings saved successfully using localStorage.');
+  } else {
+    toastr.error('Storage not supported in this environment. Your browser does not support localStorage or is not a chromium browser',"Unable to Save!");
+  }
 }
 
 function getSettingsSave(){
-  fs.readdir(extensionCachePath,function(err,files){
-    if (err){console.log(err);return;}
-    files.forEach(filePath => {
-      var index = filePath.split("/").reverse()[1]
-      console.log(index)
-      fs.readFile(filePath,function(err,data){
-        if (err){console.log(err);return;}
-        saveFile[index]=data
-      })
+  if (typeof chrome !== 'undefined' && chrome.storage) {
+    // Chrome extension environment
+    chrome.storage.local.get('extensionCachePath', function(result) {
+      saveFile = result.extensionCachePath || [];
     });
-  })
+  } else if (typeof localStorage !== 'undefined') {
+    // Other browsers supporting localStorage
+    const storedData = localStorage.getItem('extensionCachePath');
+    saveFile = storedData ? JSON.parse(storedData) : [];
+  } else {
+    toastr.error('Storage not supported in this environment. Your browser does not support localStorage or is not a chromium browser',"Unable to Save!");
+  }
 }
 
 var advanced_character = false
