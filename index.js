@@ -42,14 +42,14 @@ function reset(){
     $("#extensions_settings").append(settingsHtml);
   
     $("#adv_character_setting").on("input", onExampleInput);
+    const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
+    const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
+    const tranTrigAdvanced = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggers.html`);
 
-    if (extension_settings[extensionName].adv_character)
+    if (extension_settings[extensionName].adv_character == true)
     {
-      const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggers.html`);
-      $("#table_container").append(tranTrigBasic);
+      $("#table_container").append(tranTrigAdvanced);
     } else {
-      const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
-      const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
       $("#table_container").append(tranTrigBasic);
     
       $("#table_container").append(tranBasic);
