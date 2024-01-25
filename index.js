@@ -62,7 +62,7 @@ function handleIncomingMessage(){
       }
     }
   }catch(ex){
-
+    toastr.error(ex)
   }
 }
 
