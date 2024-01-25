@@ -41,8 +41,10 @@ function getStartTerms(){
     return basicTermsStr.split(",");
   }
 }
-function getEndTerms(){
+async function getEndTerms(){
   if (extension_settings[extensionName].adv_inputs){
+    var result = $("#end_trigger_settings").get("value")
+    toastr.info(result,"test")
     return endTermsStr.split(",");
   } else {
     return basicTermsStr.split(",");
@@ -186,29 +188,8 @@ function reset(wasInit){
     if (extension_settings[extensionName].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
-      $("#start_trigger_settings").on("onchange",(event)=>{
-        startTermsStr = String($(event.target).prop("value"));
-        toastr.info(
-          startTermsStr,
-          "change Detected"
-        )
-      })
-      $("#end_trigger_settings").on("onchange",(event)=>{
-        endTermsStr = String($(event.target).prop("value"));
-        toastr.info(
-          endTermsStr,
-          "change Detected"
-        )
-      })
     } else {
       $("#table_container").append(tranTrigBasic);
-      $("#basic_trigger_settings").on("onchange",(event)=>{
-        basicTermsStr = String($(event.target).prop("value"));
-        toastr.info(
-          basicTermsStr,
-          "change Detected"
-        )
-      })
     }
 
     if (extension_settings[extensionName].adv_character)
