@@ -2,6 +2,18 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 
 import { saveSettingsDebounced,eventSource,event_types } from "../../../../script.js";
 
+const extensionName = "st-extension-transformations";
+const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
+const defaultSettings = {
+  adv_character: false,
+  adv_inputs: false,
+  start_keys: "",
+  end_keys:"",
+  basic_keys:"",
+  char_trans:true
+};
+
+
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
 function getSaveLocation(){
@@ -12,6 +24,14 @@ function getSaveLocation(){
     return extensionName;
   }
   return extensionName + context.chatId;
+}
+
+function getValue(value,defaultValue){
+  if (extension_settings[getSaveLocation()] == null || extension_settings[getSaveLocation()] == undefined)
+    return defaultValue
+  else if (extension_settings[getSaveLocation()][value] == null || extension_settings[getSaveLocation()][value] == undefined)
+    return defaultValue
+  return extension_settings[getSaveLocation()][value]
 }
 
 //Self Note: extension_settings[getSaveLocation()].adv_inputs is erroring somewhere
@@ -116,18 +136,6 @@ function getLastElement(t){
   });
   return val;
 }
-
-const extensionName = "st-extension-transformations";
-const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
-const defaultSettings = {
-  adv_character: false,
-  adv_inputs: false,
-  start_keys: "",
-  end_keys:"",
-  basic_keys:"",
-  char_trans:true
-};
-
 async function loadSettings() {
   extension_settings[getSaveLocation()] = extension_settings[getSaveLocation()] || {};
   if (Object.keys(extension_settings[getSaveLocation()]).length === 0) {
