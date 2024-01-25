@@ -24,7 +24,9 @@ function onChatChanged(){
 
 async function loadSettings() {
   if (typeof currentChat == "undefined"){return;}
-
+  if (typeof extensionSettings[currentChat] == "undefined"){
+    extensionSettings[currentChat]={}
+  }
   if (Object.keys(extensionSettings[currentChat]).length == 0){
     extensionSettings[currentChat] = defaultSettings;
   }
