@@ -178,8 +178,10 @@ async function loadSettings() {
 }
 
 function onAdvPlayerInput(event) {
+  var saveLocation = getSaveLocation()
   const value = Boolean($(event.target).prop("checked"));
-  extension_settings[getSaveLocation()].adv_character = value;
+  extension_settings[saveLocation].adv_character = value;
+  advanced_character = value
   saveSettingsDebounced();
   if (value){
     toastr.info(
@@ -192,9 +194,10 @@ function onAdvPlayerInput(event) {
   }
 }
 function onAdvInputsInput(event) {
+  var saveLocation = getSaveLocation()
   const value = Boolean($(event.target).prop("checked"));
-  extension_settings[getSaveLocation()].adv_inputs = value;
-  try{advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;}catch(e){}
+  extension_settings[saveLocation].adv_inputs = value;
+  advanced_inputs = value;
   saveSettingsDebounced();
   if (value){
     reset()
