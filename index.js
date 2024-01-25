@@ -256,20 +256,24 @@ function setCharTransformed(state){
 }
 function onTextChanged(){
   if (saveFile.adv_inputs){
-    list_start_keys = $("start_trigger_settings")
-    list_end_keys = $("end_trigger_settings")
+    var a = $("start_trigger_settings")
+    var b = $("end_trigger_settings")
 
-    console.log(list_start_keys)
-    console.log(list_end_keys)
+    if (typeof a != "undefined"){
+      list_start_keys = a
+    }
+    if (typeof b != "undefined"){
+      list_end_keys = b
+    }
 
     saveFile.start_keys = list_start_keys
     saveFile.end_keys = list_end_keys
     updateSettingsSave()
   } else {
-    list_basic_keys = $("basic_trigger_settings")
-
-    console.log(list_basic_keys.val())
-    console.log(list_basic_keys.text())
+    var a = $("basic_trigger_settings").val()
+    if (typeof a != "undefined"){
+      list_basic_keys = a
+    }
 
     saveFile.basic_keys = list_basic_keys
     updateSettingsSave()
