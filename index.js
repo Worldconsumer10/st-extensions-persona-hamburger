@@ -268,7 +268,8 @@ function onTextChanged(){
   } else {
     list_basic_keys = $("basic_trigger_settings")
 
-    console.log(list_basic_keys)
+    console.log(list_basic_keys.val())
+    console.log(list_basic_keys.text())
 
     saveFile.basic_keys = list_basic_keys
     updateSettingsSave()
