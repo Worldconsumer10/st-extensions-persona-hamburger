@@ -135,9 +135,9 @@ async function loadSettings() {
   try{advanced_inputs_enabled = extension_settings[getSaveLocation()].adv_inputs;}catch(e){}
   $("#adv_character_setting").prop("checked", extension_settings[getSaveLocation()].adv_character);
   $("#adv_triggers_setting").prop("checked", extension_settings[getSaveLocation()].adv_inputs);
-  $("#basic_triggers_setting").prop("value", extension_settings[getSaveLocation()].basic_keys);
-  $("#start_triggers_setting").prop("value", extension_settings[getSaveLocation()].start_keys);
-  $("#end_triggers_setting").prop("value", extension_settings[getSaveLocation()].end_keys);
+  // $("#basic_triggers_setting").prop("value", extension_settings[getSaveLocation()].basic_keys);
+  // $("#start_triggers_setting").prop("value", extension_settings[getSaveLocation()].start_keys);
+  // $("#end_triggers_setting").prop("value", extension_settings[getSaveLocation()].end_keys);
 }
 
 function onAdvPlayerInput(event) {
