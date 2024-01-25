@@ -296,7 +296,6 @@ console.log(saveFile)
 reset(true)
 
 function reset(wasInit){
-  var saveLocation = getSaveLocation()
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
@@ -338,12 +337,12 @@ function reset(wasInit){
       $("#table_container").append(tranTrigAdvancedEnd);
       $("#start_trigger_settings").on("input",onTextChanged)
       $("#end_trigger_settings").on("input",onTextChanged)
-      $("#start_trigger_settings").prop("value",extension_settings[saveLocation].start_keys)
-      $("#start_trigger_settings").prop("value",extension_settings[saveLocation].end_keys)
+      $("#start_trigger_settings").prop("value",saveFile.start_keys)
+      $("#start_trigger_settings").prop("value",saveFile.end_keys)
     } else {
       $("#table_container").append(tranTrigBasic);
       $("#basic_trigger_settings").on("input",onTextChanged)
-      $("#basic_trigger_settings").prop("value",extension_settings[saveLocation].basic_keys)
+      $("#basic_trigger_settings").prop("value",saveFile.basic_keys)
     }
 
     if (saveFile.adv_character)
