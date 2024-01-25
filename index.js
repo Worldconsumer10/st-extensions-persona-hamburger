@@ -52,9 +52,11 @@ function reset(){
   
     $("#transformation_extension_tab").remove()
 
+    var context = getContext()
+
     if (typeof currentChat == "undefined"){
       $("#extensions_settings").append(noChatSettingsHtml);
-    } else if (currentChat.characters.length > 1){
+    } else if (context.characters.length > 1){
       $("#extensions_settings").append(groupChatSettingsHtml);
     } else {
       $("#extensions_settings").append(settingsHtml);
