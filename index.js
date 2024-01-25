@@ -351,8 +351,9 @@ function reset(wasInit){
       $("#table_container").append(tranTrigAdvancedEnd);
       $("#start_trigger_settings").on("input",onTextChanged)
       $("#end_trigger_settings").on("input",onTextChanged)
+      console.log(saveFile)
       $("#start_trigger_settings").prop("value",saveFile.start_keys)
-      $("#start_trigger_settings").prop("value",saveFile.end_keys)
+      $("#end_trigger_settings").prop("value",saveFile.end_keys)
     } else {
       $("#table_container").append(tranTrigBasic);
       $("#basic_trigger_settings").on("input",onTextChanged)
