@@ -2,13 +2,10 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 
 import { saveSettingsDebounced,eventSource,event_types } from "../../../../script.js";
 
-var saveFile = {}
-
 var isCompatible = isBrowserCompatible();
 
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
-const extensionCachePath = `${extensionFolderPath}/cache/`
 const defaultSettings = {
   adv_character: false,
   adv_inputs: false,
@@ -17,6 +14,7 @@ const defaultSettings = {
   basic_keys:"",
   char_trans:true
 };
+var saveFile = defaultSettings
 
 function isBrowserCompatible(){
   if (typeof chrome != "undefined" && chrome.storage){
@@ -191,13 +189,34 @@ function getLastElement(t){
   });
   return val;
 }
+
+function validateSettings(){
+  var saveLocation = getSaveLocation();
+  var saveData = saveFile[saveLocation];
+  if (typeof saveData == "undefined")
+  { saveData = defaultSettings }
+  else{
+    for (const key in defaultSettings) {
+      if (Object.hasOwnProperty.call(defaultSettings, key)) {
+        const element = defaultSettings[key];
+        if (typeof saveData[key]=="undefined")
+        {
+          saveData[key]=element;
+        }
+      }
+    }
+  }
+}
+
 async function loadSettings() {
   var saveLocation = getSaveLocation();
   if (Object.keys(saveFile[saveLocation]).length === 0) {
     Object.assign(saveFile[saveLocation], defaultSettings);
     updateSettingsSave();
+    validateSettings();
   } else {
     getSettingsSave();
+    validateSettings();
   }
 
   advanced_character = saveFile[saveLocation].adv_character
