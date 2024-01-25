@@ -68,6 +68,7 @@ function reset(wasInit){
 
     if (extension_settings[extensionName].adv_character)
     {
+      $("#table_container").append(tranAdv);
     } else {
       $("#table_container").append(tranBasic);
     }
