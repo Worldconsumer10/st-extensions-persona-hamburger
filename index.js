@@ -20,7 +20,7 @@ function handleIncomingMessage(){
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
-      toastr.info("New Message Recieved!","Message Recieved")
+      toastr.info(`New Message Recieved!\nAdvanced Inputs?: ${extension_settings[getSaveLocation()].adv_inputs}`,"Message Recieved")
       if (extension_settings[getSaveLocation()].adv_inputs){
         var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
         var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
