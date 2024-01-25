@@ -40,6 +40,7 @@ function onPromptInput(){
   var promptVal = $("#character_prompt_override_setting").val();
   extensionSettings[currentChat].newDescription = promptVal;
   $("#description_textarea").val(promptVal)
+  $("#description_textarea").text(promptVal)
   saveSettingsDebounced();
 }
 
