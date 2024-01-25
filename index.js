@@ -2,7 +2,7 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 
 import { saveSettingsDebounced } from "../../../../script.js";
 
-const extensionName = "st-extension-transformation";
+const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 const extensionSettings = extension_settings[extensionName];
 const defaultSettings = {};
@@ -29,7 +29,7 @@ function onButtonClick() {
 }
 
 jQuery(async () => {
-  const settingsHtml = await $.get(`${extensionFolderPath}/example.html`);
+  const settingsHtml = await $.get(`${extensionFolderPath}/ui.html`);
   $("#extensions_settings").append(settingsHtml);
   $("#my_button").on("click", onButtonClick);
   $("#example_setting").on("input", onExampleInput);
