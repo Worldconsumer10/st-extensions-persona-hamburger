@@ -160,14 +160,13 @@ async function loadSettings() {
   list_end_keys = extension_settings[saveLocation].adv_character
   character_trans = extension_settings[saveLocation].char_trans
 
-  toastr.info(
-    `Advanced Character Enabled: ${advanced_character}\n`+
+  console.log(
+    `Loaded Settings:\nAdvanced Character Enabled: ${advanced_character}\n`+
     `Advanced Input Enabled: ${advanced_inputs}\n`+
     `Basic Keys: ${advanced_character}\n`+
     `Start Keys: ${advanced_character}\n`+
     `End Keys: ${advanced_character}\n`+
-    `Character Transformed: ${character_trans}`,
-    "Loaded Settings"
+    `Character Transformed: ${character_trans}`
   )
 
 
@@ -208,7 +207,13 @@ function setCharTransformed(state){
   extension_settings[getSaveLocation()].char_trans = state;
 }
 function onTextChanged(){
-  toastr.info("Text Change Detected","DEBUG")
+  var saveLocation = getSaveLocation();
+  list_basic_keys = $("basic_trigger_settings").val()
+  list_start_keys = $("start_trigger_settings").val()
+  list_end_keys = $("end_trigger_settings").val()
+  extension_settings[saveLocation].basic_keys = list_basic_keys
+  extension_settings[saveLocation].start_keys = list_start_keys
+  extension_settings[saveLocation].end_keys = list_end_keys
 }
 function toggleTransformed(){
   setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
@@ -247,9 +252,12 @@ function reset(wasInit){
       $("#table_container").append(tranTrigAdvancedEnd);
       $("#start_trigger_settings").on("input",onTextChanged)
       $("#end_trigger_settings").on("input",onTextChanged)
+      $("#start_trigger_settings").prop("value",extension_settings[saveLocation].start_keys)
+      $("#start_trigger_settings").prop("value",extension_settings[saveLocation].end_keys)
     } else {
-      $("#basic_trigger_settings").on("input",onTextChanged)
       $("#table_container").append(tranTrigBasic);
+      $("#basic_trigger_settings").on("input",onTextChanged)
+      $("#basic_trigger_settings").prop("value",extension_settings[saveLocation].basic_keys)
     }
 
     if (extension_settings[getSaveLocation()].adv_character)
