@@ -160,6 +160,16 @@ async function loadSettings() {
   list_end_keys = extension_settings[saveLocation].adv_character
   character_trans = extension_settings[saveLocation].char_trans
 
+  toastr.info(
+    `Advanced Character Enabled: ${advanced_character}\n`+
+    `Advanced Input Enabled: ${advanced_character}\n`+
+    `Basic Keys: ${advanced_character}\n`+
+    `Start Keys: ${advanced_character}\n`+
+    `End Keys: ${advanced_character}\n`+
+    `Character Transformed: ${character_trans}`,
+    "Loaded Settings"
+  )
+
 
   $("#adv_character_setting").prop("checked", extension_settings[saveLocation].adv_character);
   $("#adv_triggers_setting").prop("checked", extension_settings[saveLocation].adv_inputs);
