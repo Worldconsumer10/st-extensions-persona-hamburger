@@ -198,6 +198,7 @@ function onAdvPlayerInput(event) {
 function onAdvInputsInput(event) {
   var saveLocation = getSaveLocation()
   const value = Boolean($(event.target).prop("checked"));
+  console.log(extension_settings)
   extension_settings[saveLocation].adv_inputs = value;
   advanced_inputs = value;
   saveSettingsDebounced();
