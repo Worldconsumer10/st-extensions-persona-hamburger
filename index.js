@@ -198,7 +198,6 @@ function onAdvPlayerInput(event) {
 function onAdvInputsInput(event) {
   var saveLocation = getSaveLocation()
   const value = Boolean($(event.target).prop("checked"));
-  console.log(extension_settings)
   extension_settings[saveLocation].adv_inputs = value;
   advanced_inputs = value;
   saveSettingsDebounced();
@@ -227,6 +226,7 @@ function onTextChanged(){
 function toggleTransformed(){
   setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
 }
+console.log(extension_settings)
 
 reset(true)
 function reset(wasInit){
