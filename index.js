@@ -11,11 +11,7 @@ const defaultSettings = {};
 
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
-function handleIncomingMessage(data){
-  toastr.info(
-    data,
-    "Result!"
-  )
+function handleIncomingMessage(){
 }
 
 async function loadSettings() {
