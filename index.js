@@ -28,7 +28,7 @@ function onExampleInput(event) {
   }
 }
 
-reset(false)
+reset(extension_settings[extensionName].adv_character)
 function reset(advanced_character){
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
