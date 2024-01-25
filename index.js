@@ -23,14 +23,15 @@ function onChatChanged(){
 
 
 async function loadSettings() {
-
-  $("#character_prompt_override_setting").val(extensionSettings.newDescription)
+  if (typeof currentChat == "undefined"){return;}
+  $("#character_prompt_override_setting").val(extensionSettings[currentChat].newDescription)
 
 }
 
 function onPromptInput(){
+  if (typeof currentChat == "undefined"){return;}
   var promptVal = $("#character_prompt_override_setting").val();
-  extensionSettings.newDescription = promptVal;
+  extensionSettings[currentChat].newDescription = promptVal;
   saveSettingsDebounced();
 }
 
@@ -47,7 +48,7 @@ function reset(){
       $("#extensions_settings").append(noChatSettingsHtml);
     } else {
       $("#extensions_settings").append(settingsHtml);
-      $("#chat_id").text(currentChat)
+      $("#chat_id").text("Current Chat: "+currentChat)
     }
   
     $("#character_prompt_override_setting").on("input",onPromptInput)
