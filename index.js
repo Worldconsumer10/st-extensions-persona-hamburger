@@ -135,9 +135,9 @@ async function loadSettings() {
   try{advanced_inputs_enabled = extension_settings[getSaveLocation()].adv_inputs;}catch(e){}
   $("#adv_character_setting").prop("checked", extension_settings[getSaveLocation()].adv_character);
   $("#adv_triggers_setting").prop("checked", extension_settings[getSaveLocation()].adv_inputs);
-  // $("#basic_triggers_setting").prop("value", extension_settings[getSaveLocation()].basic_keys);
-  // $("#start_triggers_setting").prop("value", extension_settings[getSaveLocation()].start_keys);
-  // $("#end_triggers_setting").prop("value", extension_settings[getSaveLocation()].end_keys);
+  $("#basic_triggers_setting").prop("value", extension_settings[getSaveLocation()].basic_keys);
+  $("#start_triggers_setting").prop("value", extension_settings[getSaveLocation()].start_keys);
+  $("#end_triggers_setting").prop("value", extension_settings[getSaveLocation()].end_keys);
 }
 
 function onAdvPlayerInput(event) {
@@ -194,20 +194,20 @@ function reset(wasInit){
     const charTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/chartrans.html`);
     const charNotTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/charnorm.html`);
 
-    if (extension_settings[extensionName].char_trans){
+    if (extension_settings[getSaveLocation].char_trans){
       $("#table_container").append(charTransformed);
     } else {
       $("#table_container").append(charNotTransformed);
     }
 
-    if (extension_settings[extensionName].adv_inputs){
+    if (extension_settings[getSaveLocation].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
     } else {
       $("#table_container").append(tranTrigBasic);
     }
 
-    if (extension_settings[extensionName].adv_character)
+    if (extension_settings[getSaveLocation].adv_character)
     {
       $("#table_container").append(tranAdv);
     } else {
