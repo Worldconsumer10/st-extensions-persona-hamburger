@@ -12,7 +12,7 @@ const defaultSettings = {
   start_keys: "",
   end_keys:"",
   basic_keys:"",
-  char_trans:true
+  char_trans:false
 };
 var saveFile = defaultSettings
 
@@ -336,6 +336,12 @@ function reset(wasInit){
       $("#table_container").append(charTransformed);
     } else {
       $("#table_container").append(charNotTransformed);
+    }
+
+    if (saveFile[saveLocation].char_trans){
+      $("#force_revert_setting").removeAttr("disabled");
+    } else {
+      $("#force_revert_setting").attr("disabled", "");
     }
 
     if (saveFile[saveLocation].adv_inputs){
