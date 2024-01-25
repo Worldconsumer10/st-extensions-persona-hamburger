@@ -2,7 +2,9 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 
 import { saveSettingsDebounced,eventSource,event_types } from "../../../../script.js";
 
-const saveFile = {}
+var saveFile = {}
+
+var isCompatible = isBrowserCompatible();
 
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
@@ -15,6 +17,17 @@ const defaultSettings = {
   basic_keys:"",
   char_trans:true
 };
+
+function isBrowserCompatible(){
+  if (typeof chrome != "undefined" && chrome.storage){
+    return true;
+  } else if (typeof localStorage !== 'undefined') {
+    return true;
+  } else {
+    toastr.error('Storage not supported in this environment. Your browser does not support localStorage or is not a chromium browser',"Unable to Save Data!");
+  }
+  return false
+}
 
 function updateSettingsSave(){
   if (typeof chrome != "undefined" && chrome.storage){
@@ -41,7 +54,7 @@ function getSettingsSave(){
     const storedData = localStorage.getItem('extensionCachePath');
     saveFile = storedData ? JSON.parse(storedData) : [];
   } else {
-    toastr.error('Storage not supported in this environment. Your browser does not support localStorage or is not a chromium browser',"Unable to Save!");
+    toastr.error('Storage not supported in this environment. Your browser does not support localStorage or is not a chromium browser',"Unable to Get!");
   }
 }
 
@@ -274,7 +287,11 @@ function reset(wasInit){
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
     $("#transformation_extension_tab").remove();
-
+    if (!isCompatible){
+      const notcompatible = await $.get(`${extensionFolderPath}/htmlelements/add/notCompat.html`);
+      $("#extensions_settings").append(notcompatible);
+      return;
+    }
     $("#extensions_settings").append(settingsHtml);
   
     $("#adv_character_setting").on("input", onAdvPlayerInput);
