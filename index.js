@@ -110,7 +110,13 @@ function getLastElement(t){
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 const extensionSettings = extension_settings[extensionName];
-const defaultSettings = {};
+const defaultSettings = {
+  adv_character: false,
+  adv_inputs: false,
+  start_keys: "",
+  end_keys:"",
+  basic_keys:""
+};
 async function loadSettings() {
   extension_settings[extensionName] = extension_settings[extensionName] || {};
   if (Object.keys(extension_settings[extensionName]).length === 0) {
@@ -119,6 +125,9 @@ async function loadSettings() {
   try{advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;}catch(e){}
   $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character);
   $("#adv_triggers_setting").prop("checked", extension_settings[extensionName].adv_inputs);
+  $("#basic_triggers_setting").prop("value", extension_settings[extensionName].basic_keys);
+  $("#start_triggers_setting").prop("value", extension_settings[extensionName].start_keys);
+  $("#end_triggers_setting").prop("value", extension_settings[extensionName].end_keys);
 }
 
 function onAdvPlayerInput(event) {
