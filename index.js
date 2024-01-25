@@ -184,7 +184,7 @@ function onAdvPlayerInput(event) {
   advanced_character = value
   saveSettingsDebounced();
   if (value){
-    toastr.info(
+    toastr.warning(
       `The new settings will completely override your characters description`,
       "Advanced Character Enabled"
     );
@@ -211,12 +211,15 @@ function setCharTransformed(state){
 }
 function onTextChanged(){
   var saveLocation = getSaveLocation();
-  list_basic_keys = $("basic_trigger_settings").val()
-  list_start_keys = $("start_trigger_settings").val()
-  list_end_keys = $("end_trigger_settings").val()
-  extension_settings[saveLocation].basic_keys = list_basic_keys
-  extension_settings[saveLocation].start_keys = list_start_keys
-  extension_settings[saveLocation].end_keys = list_end_keys
+  if (extension_settings[saveLocation].adv_inputs){
+    list_start_keys = $("start_trigger_settings").val()
+    list_end_keys = $("end_trigger_settings").val()
+    extension_settings[saveLocation].start_keys = list_start_keys
+    extension_settings[saveLocation].end_keys = list_end_keys
+  } else {
+    list_basic_keys = $("basic_trigger_settings").val()
+    extension_settings[saveLocation].basic_keys = list_basic_keys
+  }
 }
 function toggleTransformed(){
   setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
