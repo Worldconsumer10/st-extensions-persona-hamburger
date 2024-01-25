@@ -11,7 +11,7 @@ function handleIncomingMessage(){
   const chat = context.chat;
   const newMessage = getLastElement(chat)
   toastr.info(
-    `${newMessage}`,
+    `${newMessage.mes}`,
     "Advanced Character Enabled"
   );
 }
