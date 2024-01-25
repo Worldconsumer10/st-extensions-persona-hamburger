@@ -332,7 +332,7 @@ function reset(wasInit){
   
     $("#adv_character_setting").on("input", onAdvPlayerInput);
     $("#adv_triggers_setting").on("input", onAdvInputsInput);
-    $("#force_revert_setting").on("input", onForceRevert);
+    $("#force_revert_setting").on("click", onForceRevert);
 
     const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
     const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
