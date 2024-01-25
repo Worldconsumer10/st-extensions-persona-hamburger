@@ -13,6 +13,13 @@ const defaultSettings = {
   char_trans:true
 };
 
+var advanced_character = false
+var advanced_inputs = false
+var list_start_keys = ""
+var list_end_keys = ""
+var list_basic_keys = ""
+var character_trans = false
+
 
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
@@ -43,7 +50,7 @@ function handleIncomingMessage(){
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
-      var adinp = getValue("adv_inputs",false)
+      var adinp = advanced_inputs
       console.log("Incoming Message")
       toastr.info(`New Message Recieved!\nAdvanced Inputs?: ${adinp}`,"Message Recieved")
       if (adinp){
@@ -140,16 +147,25 @@ function getLastElement(t){
   return val;
 }
 async function loadSettings() {
-  extension_settings[getSaveLocation()] = extension_settings[getSaveLocation()] || {};
-  if (Object.keys(extension_settings[getSaveLocation()]).length === 0) {
-    Object.assign(extension_settings[getSaveLocation()], defaultSettings);
+  var saveLocation = getSaveLocation();
+  extension_settings[saveLocation] = extension_settings[saveLocation] || {};
+  if (Object.keys(extension_settings[saveLocation]).length === 0) {
+    Object.assign(extension_settings[saveLocation], defaultSettings);
   }
-  try{advanced_inputs_enabled = extension_settings[getSaveLocation()].adv_inputs;}catch(e){}
-  $("#adv_character_setting").prop("checked", extension_settings[getSaveLocation()].adv_character);
-  $("#adv_triggers_setting").prop("checked", extension_settings[getSaveLocation()].adv_inputs);
-  $("#basic_triggers_setting").prop("value", extension_settings[getSaveLocation()].basic_keys);
-  $("#start_triggers_setting").prop("value", extension_settings[getSaveLocation()].start_keys);
-  $("#end_triggers_setting").prop("value", extension_settings[getSaveLocation()].end_keys);
+
+  advanced_character = extension_settings[saveLocation].adv_character
+  advanced_inputs = extension_settings[saveLocation].adv_inputs
+  list_basic_keys = extension_settings[saveLocation].basic_keys
+  list_start_keys = extension_settings[saveLocation].start_keys
+  list_end_keys = extension_settings[saveLocation].adv_character
+  character_trans = extension_settings[saveLocation].char_trans
+
+
+  $("#adv_character_setting").prop("checked", extension_settings[saveLocation].adv_character);
+  $("#adv_triggers_setting").prop("checked", extension_settings[saveLocation].adv_inputs);
+  $("#basic_triggers_setting").prop("value", extension_settings[saveLocation].basic_keys);
+  $("#start_triggers_setting").prop("value", extension_settings[saveLocation].start_keys);
+  $("#end_triggers_setting").prop("value", extension_settings[saveLocation].end_keys);
 }
 
 function onAdvPlayerInput(event) {
