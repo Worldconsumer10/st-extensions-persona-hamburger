@@ -29,7 +29,12 @@ function onExampleInput(event) {
 
 jQuery(async () => {
   const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
+
+
+  const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
+
   $("#extensions_settings").append(settingsHtml);
   $("#adv_character_setting").on("input", onExampleInput);
+  $("#table_container").append(tranBasic);
   loadSettings();
 });
