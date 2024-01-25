@@ -308,6 +308,7 @@ console.log(saveFile)
 reset(true)
 
 function reset(wasInit){
+  var saveLocation = getSaveLocation()
   jQuery(async () => {
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
@@ -331,13 +332,13 @@ function reset(wasInit){
     const charTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/chartrans.html`);
     const charNotTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/charnorm.html`);
 
-    if (saveFile[getSaveLocation()].char_trans){
+    if (saveFile[saveLocation].char_trans){
       $("#table_container").append(charTransformed);
     } else {
       $("#table_container").append(charNotTransformed);
     }
 
-    if (saveFile[getSaveLocation()].adv_inputs){
+    if (saveFile[saveLocation].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
       $("#start_trigger_settings").on("input",onTextChanged)
@@ -350,7 +351,7 @@ function reset(wasInit){
       $("#basic_trigger_settings").prop("value",extension_settings[saveLocation].basic_keys)
     }
 
-    if (saveFile[getSaveLocation()].adv_character)
+    if (saveFile[saveLocation].adv_character)
     {
       $("#table_container").append(tranAdv);
     } else {
