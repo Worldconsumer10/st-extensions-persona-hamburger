@@ -302,6 +302,7 @@ setInterval(() => {
 
 getSettingsSave();
 validateSettings();
+console.log(saveFile)
 
 reset(true)
 
