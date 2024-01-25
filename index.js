@@ -38,7 +38,7 @@ async function loadSettings() {
 function onPromptInput(){
   var promptVal = $("#character_prompt_override_setting").val();
   chatExtensionSettings.newDescription = promptVal;
-  saveSettingsDebounced();
+  saveSettings();
 }
 
 jQuery(async () => {
