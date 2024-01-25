@@ -258,17 +258,20 @@ function onTextChanged(){
   if (saveFile.adv_inputs){
     list_start_keys = $("start_trigger_settings").val()
     list_end_keys = $("end_trigger_settings").val()
-    console.log("New Data:")
-    console.log(saveFile)
+
+    console.log(list_start_keys)
+    console.log(list_end_keys)
+
     saveFile.start_keys = list_start_keys
     saveFile.end_keys = list_end_keys
     updateSettingsSave()
   } else {
     list_basic_keys = $("basic_trigger_settings").val()
+
+    console.log(list_basic_keys)
+
     saveFile.basic_keys = list_basic_keys
     updateSettingsSave()
-    console.log("New Data:")
-    console.log(saveFile)
   }
 }
 function toggleTransformed(){
