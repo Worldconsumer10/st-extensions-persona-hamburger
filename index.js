@@ -4,7 +4,8 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 import { saveSettingsDebounced,eventSource,event_types } from "../../../../script.js";
 
 const defaultSettings = {
-  newDescription: ""
+  newDescription: "",
+  originalDescription: ""
 };
 
 // Keep track of where your extension is located, name should match repo name
@@ -30,7 +31,6 @@ async function loadSettings() {
   if (Object.keys(extensionSettings[currentChat]).length == 0){
     extensionSettings[currentChat] = defaultSettings;
   }
-
   $("#character_prompt_override_setting").val(extensionSettings[currentChat].newDescription)
 
 }
@@ -39,6 +39,7 @@ function onPromptInput(){
   if (typeof currentChat == "undefined"){return;}
   var promptVal = $("#character_prompt_override_setting").val();
   extensionSettings[currentChat].newDescription = promptVal;
+  $("#description_textarea").val(promptVal)
   saveSettingsDebounced();
 }
 
