@@ -36,7 +36,11 @@ function resetHtml(){
   
     const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
     const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
-    $("#extensions_settings").find(settingsHtml).remove();
+    var v = $("#extensions_settings").find(settingsHtml);
+    if (v!=null || v!=undefined)
+    {
+      v.remove()
+    }
   
     $("#extensions_settings").append(settingsHtml);
   
