@@ -28,16 +28,24 @@ function onExampleInput(event) {
   }
 }
 
-jQuery(async () => {
-  const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
-
-
-  const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
-  const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
-
-  $("#extensions_settings").append(settingsHtml);
-  $("#adv_character_setting").on("input", onExampleInput);
-  $("#table_container").append(tranTrigBasic);
-  $("#table_container").append(tranBasic);
-  loadSettings();
-});
+resetHtml();
+function resetHtml(){
+  jQuery(async () => {
+    const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
+  
+  
+    const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
+    const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
+    $("#extensions_settings").find(settingsHtml).remove();
+  
+    $("#extensions_settings").append(settingsHtml);
+  
+    $("#adv_character_setting").on("input", onExampleInput);
+  
+    $("#table_container").append(tranTrigBasic);
+  
+    $("#table_container").append(tranBasic);
+    
+    loadSettings();
+  });
+}
