@@ -184,6 +184,7 @@ function setCharTransformed(state){
 function toggleTransformed(){
   setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
 }
+await loadExtensionSettings({}, false);
 
 reset(true)
 function reset(wasInit){
@@ -225,7 +226,6 @@ function reset(wasInit){
     } else {
       $("#table_container").append(tranBasic);
     }
-    
     loadSettings();
   });
 }
