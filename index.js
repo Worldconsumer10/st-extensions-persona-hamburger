@@ -13,11 +13,26 @@ async function loadSettings() {
     Object.assign(extension_settings[extensionName], defaultSettings);
   }
   $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character);
+  $("#adv_triggers_setting").prop("checked", extension_settings[extensionName].adv_inputs);
 }
 
-function onExampleInput(event) {
+function onAdvPlayerInput(event) {
   const value = Boolean($(event.target).prop("checked"));
   extension_settings[extensionName].adv_character = value;
+  saveSettingsDebounced();
+  if (value){
+    toastr.info(
+      `The new settings will completely override your characters description`,
+      "Advanced Character Enabled"
+    );
+    reset()
+  } else {
+    reset()
+  }
+}
+function onAdvInputsInput(event) {
+  const value = Boolean($(event.target).prop("checked"));
+  extension_settings[extensionName].adv_inputs = value;
   saveSettingsDebounced();
   if (value){
     toastr.info(
@@ -39,14 +54,17 @@ function reset(wasInit){
 
     $("#extensions_settings").append(settingsHtml);
   
-    $("#adv_character_setting").on("input", onExampleInput);
+    $("#adv_character_setting").on("input", onAdvPlayerInput);
+    $("#adv_triggers_setting").on("input", onAdvInputsInput);
     const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
     const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
-    const tranTrigAdvanced = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggers.html`);
+    const tranTrigAdvancedStart = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggersstart.html`);
+    const tranTrigAdvancedEnd = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggersend.html`);
 
     if (extension_settings[extensionName].adv_character)
     {
-      $("#table_container").append(tranTrigAdvanced);
+      $("#table_container").append(tranTrigAdvancedStart);
+      $("#table_container").append(tranTrigAdvancedEnd);
     } else {
       $("#table_container").append(tranTrigBasic);
     
