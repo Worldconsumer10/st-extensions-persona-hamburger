@@ -25,26 +25,30 @@ function onExampleInput(event) {
       `The new settings will completely override your characters description`,
       "Advanced Character Enabled"
     );
+  } else {
+    reset()
   }
 }
 
-
-jQuery(async () => {
-  const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
-
-
-  const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
-  const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
-
-  $("#transformation_extension_tab").remove();
-
-  $("#extensions_settings").append(settingsHtml);
-
-  $("#adv_character_setting").on("input", onExampleInput);
-
-  $("#table_container").append(tranTrigBasic);
-
-  $("#table_container").append(tranBasic);
+reset()
+function reset(){
+  jQuery(async () => {
+    const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
-  loadSettings();
-});
+  
+    const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
+    const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
+  
+    $("#transformation_extension_tab").remove();
+  
+    $("#extensions_settings").append(settingsHtml);
+  
+    $("#adv_character_setting").on("input", onExampleInput);
+  
+    $("#table_container").append(tranTrigBasic);
+  
+    $("#table_container").append(tranBasic);
+    
+    loadSettings();
+  });
+}
