@@ -1,7 +1,5 @@
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
 
-import { eventSource, event_types } from "../../../script.js";
-
 import { saveSettingsDebounced } from "../../../../script.js";
 
 const extensionName = "st-extension-transformations";
