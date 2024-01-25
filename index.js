@@ -10,13 +10,13 @@ const defaultSettings = {
 // Keep track of where your extension is located, name should match repo name
 const extensionName = "st-extension-transformations";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
-const extensionSettings = extension_settings[extensionName];
+var extensionSettings = extension_settings[extensionName];
 
 if (typeof(extensionSettings) == "undefined"){
   Object.assign(extensionSettings,{})
 }
 
-const chatExtensionSettings = extensionSettings[getContext().getCurrentChatId()] = defaultSettings
+var chatExtensionSettings = extensionSettings[getContext().getCurrentChatId()] = defaultSettings
 
 console.log(chatExtensionSettings)
 
