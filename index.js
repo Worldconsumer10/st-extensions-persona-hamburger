@@ -30,6 +30,6 @@ function onExampleInput(event) {
 jQuery(async () => {
   const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   $("#extensions_settings").append(settingsHtml);
-  $("#advanced_character").on("input", onExampleInput);
+  $("#adv_character_setting").on("input", onExampleInput);
   loadSettings();
 });
