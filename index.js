@@ -81,7 +81,7 @@ function getTransforms(type){
     });
     return str;
   } else {
-    getEndTerms().split(",").forEach(element => {
+    getEndTerms().forEach(element => {
       if (str == ""){
         str = element.trim()
       } else {
@@ -188,14 +188,26 @@ function reset(wasInit){
       $("#table_container").append(tranTrigAdvancedEnd);
       $("#start_trigger_settings").on("onchange",(event)=>{
         startTermsStr = String($(event.target).prop("value"));
+        toastr.info(
+          startTermsStr,
+          "change Detected"
+        )
       })
       $("#end_trigger_settings").on("onchange",(event)=>{
         endTermsStr = String($(event.target).prop("value"));
+        toastr.info(
+          endTermsStr,
+          "change Detected"
+        )
       })
     } else {
       $("#table_container").append(tranTrigBasic);
       $("#basic_trigger_settings").on("onchange",(event)=>{
         basicTermsStr = String($(event.target).prop("value"));
+        toastr.info(
+          basicTermsStr,
+          "change Detected"
+        )
       })
     }
 
