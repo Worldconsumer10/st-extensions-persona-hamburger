@@ -47,12 +47,12 @@ function getSettingsSave(){
   if (typeof chrome !== 'undefined' && chrome.storage) {
     // Chrome extension environment
     chrome.storage.local.get('extensionCachePath', function(result) {
-      saveFile = result.extensionCachePath || [];
+      saveFile = result.extensionCachePath || defaultSettings;
     });
   } else if (typeof localStorage !== 'undefined') {
     // Other browsers supporting localStorage
     const storedData = localStorage.getItem('extensionCachePath');
-    saveFile = storedData ? JSON.parse(storedData) : [];
+    saveFile = storedData ? JSON.parse(storedData) : defaultSettings;
   } else {
     toastr.error('Storage not supported in this environment. Your browser does not support localStorage or is not a chromium browser',"Unable to Get!");
   }
@@ -195,6 +195,9 @@ async function loadSettings() {
   var saveLocation = getSaveLocation();
   if (Object.keys(saveFile[saveLocation]).length === 0) {
     Object.assign(saveFile[saveLocation], defaultSettings);
+    updateSettingsSave();
+  } else {
+    getSettingsSave();
   }
 
   advanced_character = saveFile[saveLocation].adv_character
