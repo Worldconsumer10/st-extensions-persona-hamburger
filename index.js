@@ -346,12 +346,12 @@ function reset(wasInit){
       $("#force_revert_setting").attr("disabled", "");
     }
 
+    console.log(saveFile)
     if (saveFile.adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
       $("#start_trigger_settings").on("input",onTextChanged)
       $("#end_trigger_settings").on("input",onTextChanged)
-      console.log(saveFile)
       $("#start_trigger_settings").prop("value",saveFile.start_keys)
       $("#end_trigger_settings").prop("value",saveFile.end_keys)
     } else {
