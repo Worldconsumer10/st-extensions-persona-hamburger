@@ -4,9 +4,7 @@ import { saveSettingsDebounced,eventSource,event_types } from "../../../../scrip
 
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
-var startTermsStr = ""
-var endTermsStr = ""
-var basicTermsStr = ""
+advanced_inputs_enabled = false
 
 function handleIncomingMessage(){
   try{
@@ -15,13 +13,7 @@ function handleIncomingMessage(){
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
       toastr.info("New Message Recieved!","Message Recieved")
-      if (!extension_settings[extensionName].adv_inputs){
-        var regexPattern = `/([^a-zA-Z0-9]|^)(?:${getBasicTransforms()})([^a-zA-Z0-9]|$)/`;
-        toastr.info("Regex Result",`${new RegExp(regexPattern).test(newMessage)}`)
-        if (new RegExp(regexPattern).test(newMessage)) {
-          toggleTransformed()
-        }
-      } else {
+      if (advanced_inputs_enabled){
         var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
         var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
         toastr.info("Regex Result",`${new RegExp(startregexPattern).test(newMessage)}`)
@@ -30,6 +22,12 @@ function handleIncomingMessage(){
           setCharTransformed(true)
         } else if (new RegExp(endregexPattern).test(newMessage)){
           setCharTransformed(false)
+        }
+      } else {
+        var regexPattern = `/([^a-zA-Z0-9]|^)(?:${getBasicTransforms()})([^a-zA-Z0-9]|$)/`;
+        toastr.info("Regex Result",`${new RegExp(regexPattern).test(newMessage)}`)
+        if (new RegExp(regexPattern).test(newMessage)) {
+          toggleTransformed()
         }
       }
     }
@@ -68,7 +66,7 @@ function getBasicTransforms(){
     }
   });
   if (extension_settings[extensionName].adv_inputs){
-    endTermsStr.split(",").forEach(element => {
+    $("#end_trigger_settings").val().split(",").forEach(element => {
       if (str == ""){
         str = element.trim()
       } else {
@@ -118,6 +116,7 @@ async function loadSettings() {
   if (Object.keys(extension_settings[extensionName]).length === 0) {
     Object.assign(extension_settings[extensionName], defaultSettings);
   }
+  advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;
   $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character);
   $("#adv_triggers_setting").prop("checked", extension_settings[extensionName].adv_inputs);
 }
@@ -139,6 +138,7 @@ function onAdvPlayerInput(event) {
 function onAdvInputsInput(event) {
   const value = Boolean($(event.target).prop("checked"));
   extension_settings[extensionName].adv_inputs = value;
+  advanced_inputs_enabled = extension_settings[extensionName].adv_inputs;
   saveSettingsDebounced();
   if (value){
     reset()
