@@ -7,13 +7,20 @@ import { saveSettingsDebounced,eventSource,event_types } from "../../../../scrip
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
 
 function handleIncomingMessage(){
-  const context = getContext();
-  const chat = context.chat;
-  const newMessage = getLastElement(chat)
-  toastr.info(
-    `${newMessage.mes}`,
-    "Advanced Character Enabled"
-  );
+  try{
+    const context = getContext();
+    const chat = context.chat;
+    const newMessage = getLastElement(chat).mes
+    if (newMessage != "..."){
+      var text = "YourTextHere";
+      var regexPattern = /([^a-zA-Z0-9]|^)(?:transform)([^a-zA-Z0-9]|$)/;
+      if (regexPattern.test(text)) {
+        toggleTransformed()
+      }
+    }
+  }catch(ex){
+
+  }
 }
 
 function getLastElement(t){
@@ -64,6 +71,9 @@ function onAdvInputsInput(event) {
 
 function setCharTransformed(state){
   extension_settings[extensionName].char_trans = state;
+}
+function toggleTransformed(){
+  extension_settings[extensionName].char_trans = !extension_settings[extensionName].char_trans;
 }
 
 reset(true)
