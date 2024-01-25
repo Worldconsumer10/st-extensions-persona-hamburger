@@ -25,13 +25,14 @@ function getSaveLocation(){
   }
   return extensionName + context.chatId;
 }
-
-function getValue(value,defaultValue){
-  if (extension_settings[getSaveLocation()] == null || extension_settings[getSaveLocation()] == undefined)
-    return defaultValue
-  else if (extension_settings[getSaveLocation()][value] == null || extension_settings[getSaveLocation()][value] == undefined)
-    return defaultValue
-  return extension_settings[getSaveLocation()][value]
+function getValue(value, defaultValue) {
+  var saveLocation = getSaveLocation()
+  if (extension_settings[saveLocation] == null || extension_settings[saveLocation] == undefined) {
+      return defaultValue;
+  } else if (extension_settings[saveLocation][value] == null || extension_settings[saveLocation][value] == undefined) {
+      return defaultValue;
+  }
+  return extension_settings[saveLocation][value];
 }
 
 //Self Note: extension_settings[getSaveLocation()].adv_inputs is erroring somewhere
@@ -42,9 +43,10 @@ function handleIncomingMessage(){
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
+      var adinp = getValue("adv_inputs",false)
       console.log("Incoming Message")
-      toastr.info(`New Message Recieved!\nAdvanced Inputs?: ${extension_settings[getSaveLocation()].adv_inputs}`,"Message Recieved")
-      if (getValue(adv_inputs,false)){
+      toastr.info(`New Message Recieved!\nAdvanced Inputs?: ${adinp}`,"Message Recieved")
+      if (adinp){
         var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
         var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
         console.log(`${new RegExp(startregexPattern).test(newMessage)}`)
