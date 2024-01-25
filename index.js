@@ -49,6 +49,10 @@ function reset(){
     if (extension_settings[extensionName].adv_character == true)
     {
       $("#table_container").append(tranTrigAdvanced);
+      toastr.info(
+        `Setting up the UI`,
+        "Loading Advanced Character"
+        );
     } else {
       $("#table_container").append(tranTrigBasic);
     
