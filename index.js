@@ -61,13 +61,16 @@ function reset(wasInit){
     const tranTrigAdvancedStart = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggersstart.html`);
     const tranTrigAdvancedEnd = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggersend.html`);
 
-    if (extension_settings[extensionName].adv_character)
-    {
+    if (extension_settings[extensionName].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
     } else {
       $("#table_container").append(tranTrigBasic);
-    
+    }
+
+    if (extension_settings[extensionName].adv_character)
+    {
+    } else {
       $("#table_container").append(tranBasic);
     }
     
