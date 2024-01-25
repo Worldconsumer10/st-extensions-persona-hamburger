@@ -37,6 +37,7 @@ function getValue(value,defaultValue){
 //Self Note: extension_settings[getSaveLocation()].adv_inputs is erroring somewhere
 
 function handleIncomingMessage(){
+  console.log("Incoming Message")
   try{
     const context = getContext();
     const chat = context.chat;
