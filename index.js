@@ -245,10 +245,10 @@ function reset(wasInit){
     if (extension_settings[getSaveLocation()].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
-      $("#start_trigger_settings").on("onchange",onTextChanged)
-      $("#end_trigger_settings").on("onchange",onTextChanged)
+      $("#start_trigger_settings").on("input",onTextChanged)
+      $("#end_trigger_settings").on("input",onTextChanged)
     } else {
-      $("#basic_trigger_settings").on("onchange",onTextChanged)
+      $("#basic_trigger_settings").on("input",onTextChanged)
       $("#table_container").append(tranTrigBasic);
     }
 
