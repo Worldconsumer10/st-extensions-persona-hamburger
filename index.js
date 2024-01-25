@@ -290,6 +290,16 @@ function runUpdateCheck(){
   }
 }
 
+function onForceReset(){
+  saveFile = defaultSettings
+  updateSettingsSave()
+  reset()
+  toastr.warning(
+    "You will have to input your transformation description and settings again!",
+    "All data Cleared"
+  )
+}
+
 function onForceRevert(){
   saveFile.char_trans=false
   reset()
@@ -324,6 +334,7 @@ function reset(wasInit){
     $("#adv_character_setting").on("input", onAdvPlayerInput);
     $("#adv_triggers_setting").on("input", onAdvInputsInput);
     $("#force_revert_setting").on("click", onForceRevert);
+    $("#force_reset_data_setting").on("click", onForceReset);
 
     const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
     const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
@@ -345,8 +356,6 @@ function reset(wasInit){
     } else {
       $("#force_revert_setting").attr("disabled", "");
     }
-
-    console.log(saveFile)
     if (saveFile.adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
