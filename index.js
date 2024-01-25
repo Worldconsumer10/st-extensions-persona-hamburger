@@ -18,6 +18,12 @@ if (typeof(extensionSettings) == "undefined"){
 
 const chatExtensionSettings = extensionSettings[getContext().getCurrentChatId()] = defaultSettings
 
+function saveSettings(){
+  extensionSettings[getContext().getCurrentChatId()] = chatExtensionSettings
+  extension_settings = extensionSettings;
+  saveSettingsDebounced()
+}
+
 if (typeof chatExtensionSettings == "undefined"){
   chatExtensionSettings = defaultSettings;
 }
