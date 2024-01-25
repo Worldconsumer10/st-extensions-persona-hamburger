@@ -41,6 +41,10 @@ function onAdvInputsInput(event) {
   }
 }
 
+function setCharTransformed(state){
+  extension_settings[extensionName].char_trans = state;
+}
+
 reset(true)
 function reset(wasInit){
   jQuery(async () => {
@@ -58,6 +62,15 @@ function reset(wasInit){
     const tranAdv = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationAdv.html`);
     const tranTrigAdvancedStart = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggersstart.html`);
     const tranTrigAdvancedEnd = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggersend.html`);
+
+    const charTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/chartrans.html`);
+    const charNotTransformed = await $.get(`${extensionFolderPath}/htmlelements/add/charnorm.html`);
+
+    if (extension_settings[extensionName].char_trans){
+      $("#table_container").append(charTransformed);
+    } else {
+      $("#table_container").append(charNotTransformed);
+    }
 
     if (extension_settings[extensionName].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
