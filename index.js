@@ -14,6 +14,8 @@ function getSaveLocation(){
   return extensionName + context.chatId;
 }
 
+//Self Note: extension_settings[getSaveLocation()].adv_inputs is erroring somewhere
+
 function handleIncomingMessage(){
   try{
     const context = getContext();
