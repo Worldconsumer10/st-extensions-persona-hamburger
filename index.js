@@ -207,6 +207,9 @@ function onAdvInputsInput(event) {
 function setCharTransformed(state){
   extension_settings[getSaveLocation()].char_trans = state;
 }
+function onTextChanged(){
+  toastr.info("Text Change Detected","DEBUG")
+}
 function toggleTransformed(){
   setCharTransformed(!extension_settings[getSaveLocation()].char_trans)
 }
@@ -242,7 +245,10 @@ function reset(wasInit){
     if (extension_settings[getSaveLocation()].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
+      $("#start_trigger_settings").on("onchange",onTextChanged)
+      $("#end_trigger_settings").on("onchange",onTextChanged)
     } else {
+      $("#basic_trigger_settings").on("onchange",onTextChanged)
       $("#table_container").append(tranTrigBasic);
     }
 
