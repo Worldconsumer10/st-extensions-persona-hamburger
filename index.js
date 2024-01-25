@@ -13,12 +13,12 @@ async function loadSettings() {
   if (Object.keys(extension_settings[extensionName]).length === 0) {
     Object.assign(extension_settings[extensionName], defaultSettings);
   }
-  $("#example_setting").prop("checked", extension_settings[extensionName].example_setting).trigger("input");
+  $("#adv_character_setting").prop("checked", extension_settings[extensionName].adv_character).trigger("input");
 }
 
 function onExampleInput(event) {
   const value = Boolean($(event.target).prop("checked"));
-  extension_settings[extensionName].example_setting = value;
+  extension_settings[extensionName].adv_character = value;
   saveSettingsDebounced();
   if (value){
     toastr.info(
@@ -36,18 +36,24 @@ function reset(){
     const settingsHtml = await $.get(`${extensionFolderPath}/menuentry.html`);
   
   
-    const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/transformTriggerBasic.html`);
-    const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/transformationadd.html`);
   
     $("#transformation_extension_tab").remove();
   
     $("#extensions_settings").append(settingsHtml);
   
     $("#adv_character_setting").on("input", onExampleInput);
-  
-    $("#table_container").append(tranTrigBasic);
-  
-    $("#table_container").append(tranBasic);
+
+    if (extension_settings[extensionName].adv_character)
+    {
+      const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/advanced/transformationTriggers.html`);
+      $("#table_container").append(tranTrigBasic);
+    } else {
+      const tranTrigBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformTriggerBasic.html`);
+      const tranBasic = await $.get(`${extensionFolderPath}/htmlelements/basic/transformationadd.html`);
+      $("#table_container").append(tranTrigBasic);
+    
+      $("#table_container").append(tranBasic);
+    }
     
     loadSettings();
   });
