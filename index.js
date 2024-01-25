@@ -2,9 +2,11 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 
 import { saveSettingsDebounced,eventSource,event_types } from "../../../../script.js";
 
-
-
 eventSource.on(event_types.MESSAGE_RECEIVED,handleIncomingMessage)
+
+var startTermsStr = ""
+var endTermsStr = ""
+var basicTermsStr = ""
 
 function handleIncomingMessage(){
   try{
@@ -12,14 +14,81 @@ function handleIncomingMessage(){
     const chat = context.chat;
     const newMessage = getLastElement(chat).mes
     if (newMessage != "..."){
-      var text = "YourTextHere";
-      var regexPattern = /([^a-zA-Z0-9]|^)(?:transform)([^a-zA-Z0-9]|$)/;
-      if (regexPattern.test(text)) {
-        toggleTransformed()
+      if (!extension_settings[extensionName].adv_inputs){
+        var regexPattern = `/([^a-zA-Z0-9]|^)(?:${getBasicTransforms()})([^a-zA-Z0-9]|$)/`;
+        if (new RegExp(regexPattern).test(newMessage)) {
+          toggleTransformed()
+        }
+      } else {
+        var startregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(true)})([^a-zA-Z0-9]|$)/`;
+        var endregexPattern = `/([^a-zA-Z0-9]|^)(?:${getTransforms(false)})([^a-zA-Z0-9]|$)/`;
+        if (new RegExp(startregexPattern).test(newMessage)) {
+          setCharTransformed(true)
+        } else if (new RegExp(endregexPattern).test(newMessage)){
+          setCharTransformed(false)
+        }
       }
     }
   }catch(ex){
 
+  }
+}
+
+function getStartTerms(){
+  if (extension_settings[extensionName].adv_inputs){
+    return startTermsStr.split(",");
+  } else {
+    return basicTermsStr.split(",");
+  }
+}
+function getEndTerms(){
+  if (extension_settings[extensionName].adv_inputs){
+    return endTermsStr.split(",");
+  } else {
+    return basicTermsStr.split(",");
+  }
+}
+
+function getBasicTransforms(){
+  str = ""
+  getStartTerms().forEach(element => {
+    if (str == ""){
+      str = element.trim()
+    } else {
+      str = str + "|" + element.trim()
+    }
+  });
+  if (extension_settings[extensionName].adv_inputs){
+    endTermsStr.split(",").forEach(element => {
+      if (str == ""){
+        str = element.trim()
+      } else {
+        str = str + "|" + element.trim()
+      }
+    });
+  }
+  return str
+}
+function getTransforms(type){
+  str = ""
+  if (type){
+    getStartTerms().forEach(element => {
+      if (str == ""){
+        str = element.trim()
+      } else {
+        str = str + "|" + element.trim()
+      }
+    });
+    return str;
+  } else {
+    getEndTerms().split(",").forEach(element => {
+      if (str == ""){
+        str = element.trim()
+      } else {
+        str = str + "|" + element.trim()
+      }
+    });
+    return str
   }
 }
 
@@ -71,9 +140,20 @@ function onAdvInputsInput(event) {
 
 function setCharTransformed(state){
   extension_settings[extensionName].char_trans = state;
+  if (state){
+    toastr.info(
+      `Transformation detected!`,
+      "Character Transformed"
+    )
+  } else {
+    toastr.info(
+      `Transformation Undone Phrase detected!`,
+      "Character Reverted"
+    )
+  }
 }
 function toggleTransformed(){
-  extension_settings[extensionName].char_trans = !extension_settings[extensionName].char_trans;
+  setCharTransformed(!extension_settings[extensionName].char_trans)
 }
 
 reset(true)
@@ -106,8 +186,17 @@ function reset(wasInit){
     if (extension_settings[extensionName].adv_inputs){
       $("#table_container").append(tranTrigAdvancedStart);
       $("#table_container").append(tranTrigAdvancedEnd);
+      $("#start_trigger_settings").on("onchange",(event)=>{
+        startTermsStr = String($(event.target).prop("value"));
+      })
+      $("#end_trigger_settings").on("onchange",(event)=>{
+        endTermsStr = String($(event.target).prop("value"));
+      })
     } else {
       $("#table_container").append(tranTrigBasic);
+      $("#basic_trigger_settings").on("onchange",(event)=>{
+        basicTermsStr = String($(event.target).prop("value"));
+      })
     }
 
     if (extension_settings[extensionName].adv_character)
