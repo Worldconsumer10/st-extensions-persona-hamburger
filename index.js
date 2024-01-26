@@ -52,7 +52,6 @@ async function generateInterceptor(){
   var characters = context.characters
   var charIndex = characters.findIndex(u=>u.name == appear)
   var character = characters[charIndex]
-  var charDescription = character.newDescription
   var selDescription = extensionSettings[currentChat].is_transformed ? extensionSettings[currentChat].transformedAppearance : untransformedAppearance
   var contextBorder = extensionSettings[currentChat].is_strong ? strongContext : weakContext
   setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${selDescription} ${contextBorder[1]}`,0,-1,true)
