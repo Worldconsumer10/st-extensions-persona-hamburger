@@ -25,21 +25,17 @@ function onChatChanged(){
 }
 
 function onMessageRecieved(){
-  // $("#description_textarea").trigger("input").trigger("onchange")
 }
 
 function onMessageSent(msgID){
-  var msg = getContext().chat[msgID]
-  const chId = characters.findIndex((e) => e.name === getContext().name2);
-  if (!characters[chId] || chId === -1) {
-    return;
-  }
-  if (extensionSettings[currentChat].newDescription.length > 1 && extensionSettings[currentChat].originalDescription.length > 1){
-    var newDesc = extensionSettings[currentChat].newDescription
-    var origDesc = extensionSettings[currentChat].originalDescription
-    $("#description_textarea").val(newDesc).text(newDesc).trigger("input").trigger("onchange")
-    // $("#description_textarea").val(origDesc).text(origDesc)
-  }
+  var originalOpen = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method, url) {
+      if (url === 'http://localhost:8000/api/novelai/generate') {
+          console.log('Request to http://localhost:8000/api/novelai/generate blocked.');
+          return; // Do nothing, effectively blocking the request
+      }
+      originalOpen.apply(this, arguments);
+  };
 }
 
 
