@@ -73,6 +73,10 @@ async function loadSettings() {
   $("#transformed_display").text(extensionSettings[currentChat].is_transformed ? "Character Transformed" : "Character Not Transformed")
   $("#transformed_display").attr("style", extensionSettings[currentChat].is_transformed ? "color:green" : "color:red");
 
+  $("#character_transformkeyword").val(extensionSettings[currentChat].transformedAppearance)
+  $("#character_untransformkeyword").val(extensionSettings[currentChat].untransformedAppearance)
+
+
   if (!isEnabled()){
     $("#chat_id").remove()
     $("#character_transform_field").remove()
@@ -80,6 +84,7 @@ async function loadSettings() {
     $("#force_revert_transform").remove()
     $("#transformed_display").text("Character Transformation Impossible")
     $("#transformed_display").attr("style", "color:orange");
+    $("#character_transformation_keywords").remove()
   }
 
 }
@@ -124,6 +129,21 @@ function reset(){
     $("#character_transformed_prompt_override_setting").on("input",onPromptInput)
     $("#enabled_setting").on("input",onEnableToggle)
   
+    $("#force_revert_transform").on("click", ()=>{
+      extensionSettings[currentChat].is_transformed=false
+      toastr.info(
+        `The AI will now use the untransformed appearance`,
+        "Transformation Reverted"
+      )
+    });
+
+    $("#character_transformkeyword").on("input",()=>{
+      extensionSettings[currentChat].transformedAppearance = $("#character_transformkeyword").val()
+    })
+    $("#character_untransformkeyword").on("input",()=>{
+      extensionSettings[currentChat].untransformedAppearance = $("#character_untransformkeyword").val()
+    })
+
     loadSettings();
   });
 }
