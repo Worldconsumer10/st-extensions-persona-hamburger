@@ -43,20 +43,49 @@ function onMessageSent(msgID){
           var AIName = context.name2;
           var character = context.characters.find(s => s.name == AIName);
           var description = character.data.description;
+          var newDescription = extensionSettings[currentChat].newDescription
+
+          var inputObject = JSON.parse(body).input
+
+          const originalLines = inputObject.split("\n")
+          const characterDescriptionLines = description.split("\n")
           
-          console.log(description);
+          var beforeChar = ""
           
-          // Custom function for global string replace with literal search
-          function replaceAllOccurrences(input, search, replacement) {
-              // Create a regex pattern with the search string and 'g' flag for global search, 'm' flag for multiline support
-              const regexPattern = new RegExp(search, 'gm');
-              
-              return input.replace(regexPattern, replacement);
-          }
+          var afterChar = ""
           
-          var replacedBody = replaceAllOccurrences(body, description, extensionSettings[currentChat].newDescription);
+          var hasntEncountered = true;
+          var hasFinished = false;
           
-          console.log(replacedBody);
+          originalLines.forEach(entry => {
+              var res = false;
+              for (let index = 0; index < characterDescriptionLines.length; index++) {
+                  const element = characterDescriptionLines[index];
+                  if (entry == element){
+                      res=true;
+                      hasntEncountered = false;
+                      hasFinished=index >= characterDescriptionLines.length-1;
+                  }
+              }
+              if (res){
+              } else if (hasntEncountered) {
+                  if (beforeChar == ""){
+                      beforeChar = beforeChar + entry
+                  } else {
+                      beforeChar = beforeChar + "\n" + entry
+                  }
+              } else if (hasFinished){
+                  if (afterChar == ""){
+                      afterChar = afterChar + entry
+                  } else {
+                      afterChar = afterChar + "\n" + entry
+                  }
+              }
+          })
+          var assembled = beforeChar + "\n" + newDescription + "\n" + afterChar
+
+          console.log(assembled)
+
         }catch(ex){
           toastr.error(ex)
         }
