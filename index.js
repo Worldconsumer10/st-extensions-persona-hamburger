@@ -49,9 +49,9 @@ function onMessageSent(msgID){
 
           var splitter = inputObject.split("***")
 
-          var chatContext = splitter[1]
+          var chatContext = splitter[0]
 
-          var history = splitter.reverse()[1]
+          var history = splitter.reverse()[0]
 
           console.log(chatContext)
           console.log(description)
