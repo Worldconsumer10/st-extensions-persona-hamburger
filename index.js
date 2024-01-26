@@ -17,11 +17,17 @@ var currentChat = getContext().getCurrentChatId();
 
 eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
 eventSource.on(event_types.MESSAGE_SENT, onMessageSent);
+eventSource.on(event_types.MESSAGE_RECEIVED, onMessageRecieved);
 
 function onChatChanged(){
   currentChat = getContext().getCurrentChatId()
   reset()
 }
+
+function onMessageRecieved(){
+  // $("#description_textarea").trigger("input").trigger("onchange")
+}
+
 function onMessageSent(msgID){
   $('#send_textarea').val('').trigger('input');
   var msg = getContext().chat[msgID]
@@ -29,7 +35,7 @@ function onMessageSent(msgID){
   if (!characters[chId] || chId === -1) {
     return;
   }
-  $("#description_textarea").val(extensionSettings[currentChat].newDescription).trigger("input")
+  $("#description_textarea").val(extensionSettings[currentChat].newDescription).trigger("input").trigger("onchange")
   $("#description_textarea").val(extensionSettings[currentChat].originalDescription)
 }
 
