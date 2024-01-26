@@ -65,6 +65,8 @@ function onMessageSent(msgID){
 
           resultBody = jsonValue;
 
+          console.log(resultBody)
+
         }catch(ex){
           console.error(ex)
           toastr.error(ex)
@@ -77,7 +79,7 @@ function onMessageSent(msgID){
 
     init.body = resultBody;
 
-    return originalFetch.apply(this, {input, init});
+    return originalFetch.apply(this, arguments);
   };
 
 }
