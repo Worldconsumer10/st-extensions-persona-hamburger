@@ -16,10 +16,14 @@ var extensionSettings = extension_settings[extensionName]
 var currentChat = getContext().getCurrentChatId();
 
 eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
+eventSource.on(event_types.MESSAGE_SENT, onMessageSent);
 
 function onChatChanged(){
   currentChat = getContext().getCurrentChatId()
   reset()
+}
+function onMessageSent(data){
+  console.log(data)
 }
 
 
