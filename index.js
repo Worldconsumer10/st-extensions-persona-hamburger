@@ -4,7 +4,8 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 import { saveSettingsDebounced,eventSource,event_types, extension_prompt_types, getCurrentChatId, getRequestHeaders, is_send_press, setExtensionPrompt, substituteParams  } from "../../../../script.js";
 
 const defaultSettings = {
-  newDescription: ""
+  newDescription: "",
+  is_strong: false
 };
 
 // Keep track of where your extension is located, name should match repo name
@@ -24,7 +25,18 @@ function onChatChanged(){
 
 async function generateInterceptor(chat){
   //Called when a generation is being proccessed
-  setExtensionPrompt(extension_prompt_tag,"[ This is an example prompt ]",0,-10,false)
+  var weakContext = ["[","]"]
+  var strongContext = ["{","}"]
+  var appear = getContext().name2
+
+  var characters = getContext().characters
+  var charIndex = characters.findIndex(u=>u.name == appear)
+  var character = characters[charIndex]
+  console.log(character)
+  var charDEscription = characters.data.description
+
+  var contextBorder = extensionSettings[currentChat].is_strong ? strongContext : weakContext
+  setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${} ${contextBorder[1]}`,0,-1,false)
   console.log("Added Extension Prompt")
 }
 
