@@ -83,19 +83,21 @@ function checkKeywordGeneration(){
   const messageContent = recentMessage.mes
 
   if (extensionSettings[currentChat].is_transformed){
-    extensionSettings[currentChat].untransformedKeywords.split(",").forEach(transformedKeyword => {
-      const trKeyword = transformedKeyword.trim().toLowerCase()
-      if (messageContent.toLowerCase().includes(trKeyword)){
-        extensionSettings[currentChat.is_transformed] = false
+    extensionSettings[currentChat].untransformedKeywords.split(";;").forEach(transformedKeyword => {
+      const trKeyword = transformedKeyword.trim()
+      const trRegex = new RegExp(trKeyword)
+      if (trRegex.test(messageContent)){
+        extensionSettings[currentChat].is_transformed = false
         reset()
         return;
       }
     });
   } else {
-    extensionSettings[currentChat].transformedKeywords.split(",").forEach(transformedKeyword => {
+    extensionSettings[currentChat].transformedKeywords.split(";;").forEach(transformedKeyword => {
       const trKeyword = transformedKeyword.trim().toLowerCase()
-      if (messageContent.toLowerCase().includes(trKeyword)){
-        extensionSettings[currentChat.is_transformed] = true
+      const trRegex = new RegExp(trKeyword)
+      if (trRegex.test(messageContent)){
+        extensionSettings[currentChat].is_transformed = true
         reset()
         return;
       }
