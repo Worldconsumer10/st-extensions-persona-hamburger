@@ -31,6 +31,8 @@ function onMessageSent(msgID){
 
     var regexString = /(http:|https:)\/\/[^\/]*\/api\/[^\/]*(\/generate)/
 
+    console.log(url)
+
     if (regexString.test(url)) {
       console.log('Generate Request Blocked');
       return new Promise(function(resolve, reject) {
