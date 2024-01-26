@@ -225,12 +225,12 @@ function reset(){
       }
     })
 
-    $("#character_transform_dropdown").on("onchange",()=>{
-      var selectedValue = $("#character_transform_dropdown").value;
+    $("#character_transform_dropdown").change(()=>{
+      var selectedValue = $("#character_transform_dropdown").val();
       toastr.info('Selected option: ' + selectedValue,"DEBUG");
     })
-    $("#character_untransform_dropdown").on("onchange",()=>{
-      var selectedValue = $("#character_untransform_dropdown").value;
+    $("#character_untransform_dropdown").change(()=>{
+      var selectedValue = $("#character_untransform_dropdown").val();
       toastr.info('Selected option: ' + selectedValue,"DEBUG");
     })
 
