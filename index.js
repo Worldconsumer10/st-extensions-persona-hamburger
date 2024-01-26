@@ -63,13 +63,17 @@ function AppendNewUnTransformOpt(val){
   var element = new Option()
   element.value =val
   element.innerText = val
-  $("#character_untransform_dropdown").append(element)
+  if (element.innerText.trim() != ""){
+    $("#character_untransform_dropdown").append(element)
+  }
 }
 function AppendNewTransformOpt(val){
   var element = new Option()
   element.value =val
   element.innerText = val
-  $("#character_transform_dropdown").append(element)
+  if (element.innerText.trim() != ""){
+    $("#character_transform_dropdown").append(element)
+  }
 }
 function checkKeywordGeneration(){
   if (!isEnabled()){return;}
@@ -206,9 +210,7 @@ function reset(){
         var value = $("#character_transformkeyword").val().split(";;")[0]
         extensionSettings[currentChat].transformedKeywords = extensionSettings[currentChat].transformedKeywords + $("#character_transformkeyword").val()
         saveSettingsDebounced();
-        if (value.trim() != ""){
-          AppendNewTransformOpt(value.trim())
-        }
+        AppendNewTransformOpt(value.trim())
         $("#character_transformkeyword").text("").val("")
       }
     })
@@ -218,18 +220,18 @@ function reset(){
         var value = $("#character_untransformkeyword").val().split(";;")[0]
         extensionSettings[currentChat].untransformedKeywords = extensionSettings[currentChat].untransformedKeywords + $("#character_untransformkeyword").val()
         saveSettingsDebounced();
-        if (value.trim() != ""){
-          AppendNewUnTransformOpt(value.trim())
-        }
+        AppendNewUnTransformOpt(value.trim())
         $("#character_untransformkeyword").text("").val("")
       }
     })
 
     $("#character_transform_dropdown").on("onchange",()=>{
-      console.log("Option Changed")
+      var selectedValue = $("#character_transform_dropdown").value;
+      toastr.info('Selected option: ' + selectedValue,"DEBUG");
     })
     $("#character_untransform_dropdown").on("onchange",()=>{
-      console.log("Option Changed")
+      var selectedValue = $("#character_untransform_dropdown").value;
+      toastr.info('Selected option: ' + selectedValue,"DEBUG");
     })
 
     $("#is_instruct").on("input",(event)=>{
