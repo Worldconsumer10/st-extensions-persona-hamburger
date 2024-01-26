@@ -68,8 +68,8 @@ function parseUserAndChar(userName,charName,string){
   const patternUser = "{{user}}"
   const patternChar = "{{char}}"
 
-  const userNameRegex = new RegExp(userName,"/g")
-  const charNameRegex = new RegExp(charName,"/g")
+  const userNameRegex = new RegExp(userName,"g")
+  const charNameRegex = new RegExp(charName,"g")
 
   var replacedString = string.replace(userNameRegex,patternUser)
   return replacedString.replace(charNameRegex, patternChar)
