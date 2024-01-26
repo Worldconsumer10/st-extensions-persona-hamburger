@@ -24,7 +24,7 @@ function onChatChanged(){
 
 async function generateInterceptor(chat){
   //Called when a generation is being proccessed
-  setExtensionPrompt(extension_prompt_tag,"[ This is an example prompt ]",0,5,false)
+  setExtensionPrompt(extension_prompt_tag,"[ This is an example prompt ]",-1,20,false)
   console.log("Added Extension Prompt")
 }
 
