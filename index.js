@@ -48,6 +48,8 @@ async function generateInterceptor(){
   var strongContext = ["{","}"]
   var appear = context.name2
 
+  checkKeywordGeneration();
+
   var characters = context.characters
   var charIndex = characters.findIndex(u=>u.name == appear)
   var character = characters[charIndex]
@@ -58,7 +60,8 @@ async function generateInterceptor(){
 }
 
 function checkKeywordGeneration(){
-
+  var context = getContext();
+  console.log(context)
 }
 
 window['transformation_generateInterception'] = generateInterceptor
