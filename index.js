@@ -28,14 +28,20 @@ function onMessageRecieved(){
 }
 
 function onMessageSent(msgID){
-  var originalOpen = XMLHttpRequest.prototype.open;
-  XMLHttpRequest.prototype.open = function(method, url) {
+  window.fetch = function(input, init) {
+      var url = (typeof input === 'string') ? input : input.url;
+
       if (url === 'http://localhost:8000/api/novelai/generate') {
           console.log('Request to http://localhost:8000/api/novelai/generate blocked.');
-          return; // Do nothing, effectively blocking the request
+          return new Promise(function(resolve, reject) {
+              // Return an immediately resolved promise to effectively block the request
+              resolve();
+          });
       }
-      originalOpen.apply(this, arguments);
+
+      return originalFetch.apply(this, arguments);
   };
+
 }
 
 
