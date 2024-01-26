@@ -24,6 +24,7 @@ function onChatChanged(){
 }
 
 function onMessageSent(msgID){
+  var originalFetch = window.fetch;
   window.fetch = function(input, init) {
     var url = (typeof input === 'string') ? input : input.url;
     var inputObj = (typeof input === 'string') ? null : input;
