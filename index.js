@@ -66,7 +66,7 @@ async function loadSettings() {
   if (Object.keys(extensionSettings[currentChat]).length == 0){
     extensionSettings[currentChat] = defaultSettings;
   }
-  $("#enabled_setting").val(extensionSettings[currentChat].enabled)
+  $("#enabled_setting").prop("checked",extensionSettings[currentChat].enabled)
   $("#character_prompt_override_setting").val(extensionSettings[currentChat].untransformedAppearance)
   $("#character_transformed_prompt_override_setting").val(extensionSettings[currentChat].transformedAppearance)
 
