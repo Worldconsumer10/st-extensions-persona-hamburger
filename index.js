@@ -47,9 +47,7 @@ function onMessageSent(msgID){
 
           var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
 
-          const descriptionRegex = new RegExp(description,"g")
-
-          var result = inputObject.replace(descriptionRegex,newDescription)
+          var result = inputObject.replace(description,newDescription)
 
           console.log("Testing Object")
           console.log(inputObject)
