@@ -45,13 +45,13 @@ function onMessageSent(msgID){
           
           console.log(description);
           
-          // Custom function for global string replace
+          // Custom function for global string replace with multiline support
           function replaceAllOccurrences(input, search, replacement) {
               // Escape special characters in the search string for safe use in a regex
               const escapedSearchString = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
               
               // Create a regex pattern with the escaped search string and 'g' flag for global search
-              const regexPattern = new RegExp(escapedSearchString, 'g');
+              const regexPattern = new RegExp(escapedSearchString, 'gm');
               
               return input.replace(regexPattern, replacement);
           }
