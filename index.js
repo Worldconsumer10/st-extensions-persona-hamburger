@@ -58,33 +58,31 @@ function onMessageSent(msgID){
           var hasFinished = false;
           
           originalLines.forEach(entry => {
-              var res = false;
-              for (let index = 0; index < characterDescriptionLines.length; index++) {
-                  const element = characterDescriptionLines[index];
-                  const entryA = entry.replace(context.name2,"{{char}}")
-                  const elementA = element.replace(context.name1,"{{user}}")
-                  console.log(entryA.replace(context.name1,"{{user}}"))
-                  console.log(elementA.replace(context.name1,"{{user}}"))
-                  if (entryA.replace(context.name1,"{{user}}") == elementA.replace(context.name1,"{{user}}")){
-                    res=true;
-                    hasntEncountered = false;
-                    hasFinished=index >= characterDescriptionLines.length-1;
-                  }
-              }
-              if (res){
-              } else if (hasntEncountered) {
-                  if (beforeChar == ""){
-                      beforeChar = beforeChar + entry
-                  } else {
-                      beforeChar = beforeChar + "\n" + entry
-                  }
-              } else if (hasFinished){
-                  if (afterChar == ""){
-                      afterChar = afterChar + entry
-                  } else {
-                      afterChar = afterChar + "\n" + entry
-                  }
-              }
+            var entryText = entry.replace(context.name2,"{{char}}")
+            var res = false;
+            for (let index = 0; index < characterDescriptionLines.length; index++) {
+                const element = characterDescriptionLines[index];
+                var elementText = element.replace(context.name1,"{{user}}")
+                if (entryText == elementText){
+                  res=true;
+                  hasntEncountered = false;
+                  hasFinished=index >= characterDescriptionLines.length-1;
+                }
+            }
+            if (res){
+            } else if (hasntEncountered) {
+                if (beforeChar == ""){
+                    beforeChar = beforeChar + entry
+                } else {
+                    beforeChar = beforeChar + "\n" + entry
+                }
+            } else if (hasFinished){
+                if (afterChar == ""){
+                    afterChar = afterChar + entry
+                } else {
+                    afterChar = afterChar + "\n" + entry
+                }
+            }
           })
           var assembled = beforeChar + "\n" + newDescription + "\n" + afterChar
 
