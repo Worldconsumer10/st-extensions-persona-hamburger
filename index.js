@@ -129,7 +129,8 @@ async function loadSettings() {
     extensionSettings[currentChat].transformedKeywords.split(";;").forEach(entry=>{
       AppendNewTransformOpt(entry.trim())
     })
-  } else if (typeof extensionSettings[currentChat].untransformedKeywords == "string"){
+  }
+  if (typeof extensionSettings[currentChat].untransformedKeywords == "string"){
     extensionSettings[currentChat].untransformedKeywords.split(";;").forEach(entry=>{
       AppendNewUnTransformOpt(entry.trim())
     })
