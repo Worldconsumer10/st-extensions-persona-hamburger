@@ -17,14 +17,10 @@ var currentChat = getContext().getCurrentChatId();
 
 eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
 eventSource.on(event_types.MESSAGE_SENT, onMessageSent);
-eventSource.on(event_types.MESSAGE_RECEIVED, onMessageRecieved);
 
 function onChatChanged(){
   currentChat = getContext().getCurrentChatId()
   reset()
-}
-
-function onMessageRecieved(){
 }
 
 function onMessageSent(msgID){
