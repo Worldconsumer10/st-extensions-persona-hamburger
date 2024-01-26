@@ -42,16 +42,22 @@ function onMessageSent(msgID){
           var AIName = context.name2;
           var character = context.characters.find(s => s.name == AIName);
           var description = character.data.description;
-
+          
           console.log(description);
-
+          
           // Custom function for global string replace
           function replaceAllOccurrences(input, search, replacement) {
-              return input.split(search).join(replacement);
+              // Escape special characters in the search string for safe use in a regex
+              const escapedSearchString = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+              
+              // Create a regex pattern with the escaped search string and 'g' flag for global search
+              const regexPattern = new RegExp(escapedSearchString, 'g');
+              
+              return input.replace(regexPattern, replacement);
           }
-
+          
           var replacedBody = replaceAllOccurrences(body, description, extensionSettings[currentChat].newDescription);
-
+          
           console.log(replacedBody);
         }catch(ex){
           toastr.error(ex)
