@@ -49,9 +49,6 @@ function onMessageSent(msgID){
 
           const originalLines = inputObject.split("\n")
           const characterDescriptionLines = description.split("\n")
-
-          console.log(originalLines)
-          console.log(characterDescriptionLines)
           
           var beforeChar = ""
           
@@ -64,7 +61,7 @@ function onMessageSent(msgID){
               var res = false;
               for (let index = 0; index < characterDescriptionLines.length; index++) {
                   const element = characterDescriptionLines[index];
-                  if (entry == element){
+                  if (entry.replace(name2,"{{char}}").replace(name1,"{{user}}") == element.replace(name2,"{{char}}").replace(name1,"{{user}}")){
                       res=true;
                       hasntEncountered = false;
                       hasFinished=index >= characterDescriptionLines.length-1;
