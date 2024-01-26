@@ -87,8 +87,8 @@ function onPromptInput(){
 
 function onEnableToggle(){
   if (!isEnabled()){return;}
-  const isEnabled = $("#enabled_setting").val()
-  extensionSettings[currentChat].enabled=isEnabled;
+  const isEnabledValue = $("#enabled_setting").val()
+  extensionSettings[currentChat].enabled=isEnabledValue;
   reset()
 }
 
