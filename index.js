@@ -30,7 +30,7 @@ function onMessageSent(msgID){
     return;
   }
   var character = characters[chId]
-  console.log(character)
+  character.data.description = extensionSettings[currentChat].newDescription
 }
 
 
