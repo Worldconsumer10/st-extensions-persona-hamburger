@@ -1,3 +1,18 @@
+
+<script>
+    $(document).ready(function () {
+        $('character_prompt_override_setting').on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+        $('character_transformed_prompt_override_setting').on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
+</script>
+
+
 <div class="example-extension-settings" id="transformation_extension_tab">
     <div class="inline-drawer">
         <div class="inline-drawer-toggle inline-drawer-header">

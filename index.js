@@ -208,6 +208,7 @@ function reset(){
         "Transformation Reverted"
       )
       saveSettingsDebounced();
+      reset()
     });
     $("#clear_transform_keywords").on("click",()=>{
       extensionSettings[currentChat].transformedKeywords = ""
