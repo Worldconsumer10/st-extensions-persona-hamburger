@@ -1,17 +1,3 @@
-
-<style>
-    .wrapped-input {
-        overflow:hidden
-    }
-</style>
-<script>
-    function adjustHeight(element) {
-        element.style.height = 'auto';
-        element.style.height = (element.scrollHeight) + 'px';
-    }
-</script>
-
-
 <div class="example-extension-settings" id="transformation_extension_tab">
     <div class="inline-drawer">
         <div class="inline-drawer-toggle inline-drawer-header">
@@ -44,11 +30,11 @@
             </div>
             <div class="example-extension_block flex-container" id="character_transform_field">
                 <label for="character_transformed_prompt_override_setting">Characters Transformed Appearance</label>
-                <input class="wrapped-input" id="character_transformed_prompt_override_setting" oninput="adjustHeight(this)" style="background-color: transparent;background: transparent;"/>
+                <input id="character_transformed_prompt_override_setting" style="background-color: transparent;background: transparent;"/>
             </div>
             <div class="example-extension_block flex-container" id="character_untransform_field">
                 <label for="character_prompt_override_setting">Characters Untransformed Appearance</label>
-                <input class="wrapped-input" id="character_prompt_override_setting" oninput="adjustHeight(this)" style="background-color: transparent;background: transparent;"/>
+                <input id="character_prompt_override_setting" style="background-color: transparent;background: transparent;"/>
             </div>
             <hr class="sysHR" />
         </div>
