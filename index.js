@@ -22,29 +22,7 @@ function onChatChanged(){
 }
 
 async function generateInterceptor(chat){
-  try {
-    var context = getContext()
-    // Clear the extension prompt
-    setExtensionPrompt(EXTENSION_PROMPT_TAG, '', extension_prompt_types.IN_PROMPT, 0, settings.include_wi);
-
-    if (context.name2 == "" || context.name2 == " ") {
-      return;
-    }
-
-    const chatId = currentChat;
-
-    if (!chatId || !Array.isArray(chat)) {
-        console.debug('Transformations: No chat selected');
-        return;
-    }
-
-    setExtensionPrompt(EXTENSION_PROMPT_TAG, "[ This is example context ]", -1, 0, true);
-
-    console.log(getContext())
-
-  } catch (error) {
-    console.error('Transformations: Failed', error);
-  }
+  console.log("Generation Intercepted")
 }
 
 window['transformation_generateInterception'] = generateInterceptor
