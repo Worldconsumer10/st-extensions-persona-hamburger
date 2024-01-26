@@ -86,6 +86,8 @@ function onMessageSent(msgID){
           })
           var assembled = beforeChar + "\n" + newDescription + "\n" + afterChar
 
+          console.log(assembled)
+
         }catch(ex){
           toastr.error(ex)
         }
