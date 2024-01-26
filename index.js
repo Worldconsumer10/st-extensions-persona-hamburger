@@ -117,12 +117,15 @@ async function loadSettings() {
   $("#transformed_display").text(extensionSettings[currentChat].is_transformed ? "Character Transformed" : "Character Not Transformed")
   $("#transformed_display").attr("style", extensionSettings[currentChat].is_transformed ? "color:green" : "color:red");
 
-  extensionSettings[currentChat].transformedKeywords.split(",").forEach(entry=>{
-    AppendNewTransformOpt(entry.trim())
-  })
-  extensionSettings[currentChat].untransformedKeywords.split(",").forEach(entry=>{
-    AppendNewUnTransformOpt(entry.trim())
-  })
+  if (typeof extensionSettings[currentChat].transformedKeywords == "string"){
+    extensionSettings[currentChat].transformedKeywords.split(";;").forEach(entry=>{
+      AppendNewTransformOpt(entry.trim())
+    })
+  } else if (typeof extensionSettings[currentChat].untransformedKeywords == "string"){
+    extensionSettings[currentChat].untransformedKeywords.split(";;").forEach(entry=>{
+      AppendNewUnTransformOpt(entry.trim())
+    })
+  }
 
   $("#is_instruct").prop("checked",extensionSettings[currentChat].is_strong)
 
@@ -200,7 +203,7 @@ function reset(){
     $("#character_transformkeyword").on("input",()=>{
       var ending = $("#character_transformkeyword").val().endsWith(";;")
       if (ending){
-        extensionSettings[currentChat].untransformedKeywords = $("#character_transformkeyword").val()
+        extensionSettings[currentChat].transformedKeywords = extensionSettings[currentChat].transformedKeywords + $("#character_transformkeyword").val()
         saveSettingsDebounced();
         $("#character_transformkeyword").text("").val("")
         AppendNewTransformOpt($("#character_transformkeyword").val().split(";;")[0])
@@ -209,7 +212,7 @@ function reset(){
     $("#character_untransformkeyword").on("input",()=>{
       var ending = $("#character_untransformkeyword").val().endsWith(";;")
       if (ending){
-        extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val()
+        extensionSettings[currentChat].untransformedKeywords = extensionSettings[currentChat].untransformedKeywords + $("#character_untransformkeyword").val()
         saveSettingsDebounced();
         $("#character_untransformkeyword").text("").val("")
         AppendNewUnTransformOpt($("#character_untransformkeyword").val().split(";;")[0])
