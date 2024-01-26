@@ -187,6 +187,7 @@ function reset(){
         $("#character_transformkeyword").text("").val("")
         var element = new Option()
         element.value = $("#character_transformkeyword").val().split(";;")[0]
+        element.text = element.value
         $("#character_transform_dropdown").append(element)
       }
     })
@@ -198,6 +199,7 @@ function reset(){
         $("#character_untransformkeyword").text("").val("")
         var element = new Option()
         element.value = $("#character_untransformkeyword").val().split(";;")[0]
+        element.text = element.value
         $("#character_untransform_dropdown").append(element)
       }
     })
