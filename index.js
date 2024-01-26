@@ -6,8 +6,8 @@ import { saveSettingsDebounced,eventSource,event_types, extension_prompt_types, 
 const defaultSettings = {
   transformedAppearance: "",
   untransformedAppearance: "",
-  transformedKeywords: [],
-  untransformedKeywords: [],
+  transformedKeywords: "",
+  untransformedKeywords: "",
   is_strong: false,
   is_transformed: false,
   enabled: true
@@ -75,8 +75,8 @@ async function loadSettings() {
   $("#transformed_display").text(extensionSettings[currentChat].is_transformed ? "Character Transformed" : "Character Not Transformed")
   $("#transformed_display").attr("style", extensionSettings[currentChat].is_transformed ? "color:green" : "color:red");
 
-  $("#character_transformkeyword").val(extensionSettings[currentChat].transformedAppearance)
-  $("#character_untransformkeyword").val(extensionSettings[currentChat].untransformedAppearance)
+  $("#character_transformkeyword").val(extensionSettings[currentChat].transformedKeywords)
+  $("#character_untransformkeyword").val(extensionSettings[currentChat].untransformedKeywords)
 
 
   if (!isEnabled()){
@@ -149,11 +149,11 @@ function reset(){
     });
 
     $("#character_transformkeyword").on("input",()=>{
-      extensionSettings[currentChat].transformedKeywords = $("#character_transformkeyword").val().split(",")
+      extensionSettings[currentChat].transformedKeywords = $("#character_transformkeyword").val()
       saveSettingsDebounced();
     })
     $("#character_untransformkeyword").on("input",()=>{
-      extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val().split(",")
+      extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val()
       saveSettingsDebounced();
     })
 
