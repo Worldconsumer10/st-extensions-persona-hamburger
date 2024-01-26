@@ -27,13 +27,12 @@ function onMessageSent(msgID){
   var originalFetch = window.fetch;
   window.fetch = function(input, init) {
     var url = (typeof input === 'string') ? input : input.url;
-    var inputObj = (typeof input === 'string') ? null : input;
 
     var regexString = /\/api\/[^\/]*\/generate/
     if (regexString.test(url)) {
       console.log('Generate Request Blocked');
       return new Promise(function(resolve, reject) {
-        console.log(inputObj)
+        console.log(init)
         resolve();
       });
     }
