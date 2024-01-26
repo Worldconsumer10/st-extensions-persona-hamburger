@@ -7,6 +7,7 @@
     "css": "style.css",
     "author": "Ubunifu",
     "version": "1.0.0",
+    "generate_interceptor": "transformation_generateInterception",
     "permissions": [
         "storage"
     ],

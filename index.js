@@ -1,7 +1,7 @@
 
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
 
-import { saveSettingsDebounced,eventSource,event_types,characters } from "../../../../script.js";
+import { saveSettingsDebounced,eventSource,event_types, eventSource, extension_prompt_types, getCurrentChatId, getRequestHeaders, is_send_press, setExtensionPrompt, substituteParams  } from "../../../../script.js";
 
 const defaultSettings = {
   newDescription: ""
@@ -15,74 +15,37 @@ var extensionSettings = extension_settings[extensionName]
 var currentChat = getContext().getCurrentChatId();
 
 eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
-eventSource.on(event_types.MESSAGE_SENT, onMessageSent);
 
 function onChatChanged(){
   currentChat = getContext().getCurrentChatId()
   reset()
 }
 
-function onMessageSent(msgID){
-  var originalFetch = window.fetch;
-  window.fetch = function(input, init) {
-    var url = (typeof input === 'string') ? input : input.url;
+async function generateInterceptor(chat){
+  try {
+    var context = getContext()
+    // Clear the extension prompt
+    setExtensionPrompt(EXTENSION_PROMPT_TAG, '', extension_prompt_types.IN_PROMPT, 0, settings.include_wi);
 
-    var resultBody = init.body;
-
-    var regexString = /\/api\/[^\/]*\/generate/
-    if (regexString.test(url)) {
-      console.log('Generate Request Blocked');
-      return new Promise(function(resolve, reject) {
-        var body = init.body;
-        if (typeof body == "undefined"){
-          resolve()
-          return;
-        }
-
-        try{
-
-          var context = getContext();
-          var AIName = context.name2;
-          var character = context.characters.find(s => s.name == AIName);
-          var description = character.data.description;
-          var newDescription = extensionSettings[currentChat].newDescription
-
-          var jsonValue = JSON.parse(body)
-
-          var inputObject = parseUserAndChar(context.name1,context.name2,jsonValue.input)
-
-          var splitter = inputObject.split("***")
-
-          var chatContext = splitter[0]
-
-          var history = splitter.reverse()[0]
-
-          var contextModified = chatContext.replace(description,newDescription)
-
-          var result = contextModified + "\n***\n"+history
-
-          jsonValue.input = result;
-
-          resultBody = jsonValue;
-
-          console.log(resultBody)
-
-        }catch(ex){
-          console.error(ex)
-          toastr.error(ex)
-        }
-
-
-        resolve();
-      });
+    if (context.name2 == "" || context.name2 == " ") {
+      return;
     }
 
-    init.body = resultBody;
+    const chatId = currentChat;
 
-    return originalFetch.apply(this, arguments);
-  };
+    if (!chatId || !Array.isArray(chat)) {
+        console.debug('Transformations: No chat selected');
+        return;
+    }
 
+    setExtensionPrompt(EXTENSION_PROMPT_TAG, "[ This is example context ]", -1, 0, true);
+
+  } catch (error) {
+    console.error('Transformations: Failed', error);
+  }
 }
+
+window['transformation_generateInterception'] = generateInterceptor
 
 function parseUserAndChar(userName,charName,string){
   const patternUser = "{{user}}"
