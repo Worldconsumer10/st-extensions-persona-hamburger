@@ -9,6 +9,7 @@ const defaultSettings = {
 
 // Keep track of where your extension is located, name should match repo name
 const extensionName = "st-extension-transformations";
+const extension_prompt_tag = "transform_tag"
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 var extensionSettings = extension_settings[extensionName]
 
@@ -23,7 +24,8 @@ function onChatChanged(){
 
 async function generateInterceptor(chat){
   //Called when a generation is being proccessed
-  console.log(chat)
+  setExtensionPrompt(extension_prompt_tag,"[ This is an example prompt ]",0,1,false)
+  console.log("Added Extension Prompt")
 }
 
 window['transformation_generateInterception'] = generateInterceptor
