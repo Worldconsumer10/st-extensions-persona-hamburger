@@ -32,7 +32,15 @@ function onMessageSent(msgID){
     if (regexString.test(url)) {
       console.log('Generate Request Blocked');
       return new Promise(function(resolve, reject) {
-        console.log(init)
+        var body = init.body;
+        if (typeof body == "undefined"){
+          resolve()
+          return;
+        }
+
+        var context = getContext()
+        console.log(context)
+
         resolve();
       });
     }
