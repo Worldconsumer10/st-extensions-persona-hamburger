@@ -22,7 +22,7 @@ function onChatChanged(){
 }
 
 async function generateInterceptor(chat){
-  console.log("Generation Intercepted")
+  //Called when a generation is being proccessed
 }
 
 window['transformation_generateInterception'] = generateInterceptor
