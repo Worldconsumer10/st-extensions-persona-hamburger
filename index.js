@@ -4,8 +4,10 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 import { saveSettingsDebounced,eventSource,event_types, extension_prompt_types, getCurrentChatId, getRequestHeaders, is_send_press, setExtensionPrompt, substituteParams  } from "../../../../script.js";
 
 const defaultSettings = {
-  newDescription: "",
-  is_strong: false
+  transformedAppearance: "",
+  untransformedAppearance: "",
+  is_strong: false,
+  is_transformed: false
 };
 
 // Keep track of where your extension is located, name should match repo name
@@ -20,6 +22,7 @@ eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
 
 function onChatChanged(){
   currentChat = getContext().getCurrentChatId()
+  console.log(getContext())
   reset()
 }
 
@@ -32,11 +35,10 @@ async function generateInterceptor(chat){
   var characters = getContext().characters
   var charIndex = characters.findIndex(u=>u.name == appear)
   var character = characters[charIndex]
-  console.log(character)
-  var charDescription = characters.data.description
-
+  var charDescription = character.description
+  var selDescription = extensionSettings[currentChat].is_transformed ? extensionSettings[currentChat].newDescription : charDescription
   var contextBorder = extensionSettings[currentChat].is_strong ? strongContext : weakContext
-  setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${charDescription} ${contextBorder[1]}`,0,-1,false)
+  setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${selDescription} ${contextBorder[1]}`,0,-1,false)
   console.log("Added Extension Prompt")
 }
 
@@ -50,14 +52,15 @@ async function loadSettings() {
   if (Object.keys(extensionSettings[currentChat]).length == 0){
     extensionSettings[currentChat] = defaultSettings;
   }
-  $("#character_prompt_override_setting").val(extensionSettings[currentChat].newDescription)
+  $("#character_prompt_override_setting").val(extensionSettings[currentChat].untransformedAppearance)
+  $("#character_transformed_prompt_override_setting").val(extensionSettings[currentChat].transformedAppearance)
 
 }
 
 function onPromptInput(){
   if (typeof currentChat == "undefined"){return;}
-  var promptVal = $("#character_prompt_override_setting").val();
-  extensionSettings[currentChat].newDescription = promptVal;
+  extensionSettings[currentChat].transformedAppearance = $("#character_transformed_prompt_override_setting").val();
+  extensionSettings[currentChat].untransformedAppearance = $("#character_prompt_override_setting").val();
   saveSettingsDebounced();
 }
 
@@ -83,6 +86,7 @@ function reset(){
     }
   
     $("#character_prompt_override_setting").on("input",onPromptInput)
+    $("#character_transformed_prompt_override_setting").on("input",onPromptInput)
   
     loadSettings();
   });
