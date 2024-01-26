@@ -37,18 +37,22 @@ function onMessageSent(msgID){
           return;
         }
 
-        var context = getContext()
-        var AIName = context.name2
-        var character = context.characters.find(s=>s.name == AIName)
-        var description = character.data.description
+        try{
+          var context = getContext()
+          var AIName = context.name2
+          var character = context.characters.find(s=>s.name == AIName)
+          var description = character.data.description
 
-        var newDescription = extensionSettings[currentChat].newDescription
+          var newDescription = extensionSettings[currentChat].newDescription
 
-        var bodyInput = JSON.parse(body).input
+          var bodyInput = JSON.parse(body).input
 
-        var r = input.replace(description,newDescription)
+          var r = bodyInput.replace(description,newDescription)
 
-        console.log(r)
+          console.log(r)
+        }catch(ex){
+          toastr.error(ex)
+        }
 
 
         resolve();
