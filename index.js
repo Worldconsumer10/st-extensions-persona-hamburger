@@ -23,20 +23,10 @@ function onChatChanged(){
 
 async function generateInterceptor(chat){
   //Called when a generation is being proccessed
+  console.log(chat)
 }
 
 window['transformation_generateInterception'] = generateInterceptor
-
-function parseUserAndChar(userName,charName,string){
-  const patternUser = "{{user}}"
-  const patternChar = "{{char}}"
-
-  const userNameRegex = new RegExp(userName,"g")
-  const charNameRegex = new RegExp(charName,"g")
-
-  var replacedString = string.replace(userNameRegex,patternUser)
-  return replacedString.replace(charNameRegex, patternChar)
-}
 
 async function loadSettings() {
   if (typeof currentChat == "undefined"){return;}
