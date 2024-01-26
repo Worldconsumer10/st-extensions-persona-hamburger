@@ -36,8 +36,10 @@ function onMessageSent(msgID){
     return;
   }
   if (extensionSettings[currentChat].newDescription.length > 1 && extensionSettings[currentChat].originalDescription.length > 1){
-    $("#description_textarea").val(extensionSettings[currentChat].newDescription).trigger("input").trigger("onchange")
-    $("#description_textarea").val(extensionSettings[currentChat].originalDescription)
+    var newDesc = extensionSettings[currentChat].newDescription
+    var origDesc = extensionSettings[currentChat].originalDescription
+    $("#description_textarea").val(newDesc).text(newDesc).trigger("input").trigger("onchange")
+    $("#description_textarea").val(origDesc).text(origDesc)
   }
 }
 
@@ -58,8 +60,6 @@ function onPromptInput(){
   if (typeof currentChat == "undefined"){return;}
   var promptVal = $("#character_prompt_override_setting").val();
   extensionSettings[currentChat].newDescription = promptVal;
-  $("#description_textarea").val(promptVal)
-  $("#description_textarea").text(promptVal)
   saveSettingsDebounced();
 }
 
