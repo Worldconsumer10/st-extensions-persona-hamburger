@@ -227,11 +227,15 @@ function reset(){
 
     $("#character_transform_dropdown").change(()=>{
       var selectedValue = $("#character_transform_dropdown").val();
-      toastr.info('Selected option: ' + selectedValue,"DEBUG");
+      if(selectedValue) {
+        $('#character_transform_dropdown option[value="' + selectedValue + '"]').remove();
+      }
     })
     $("#character_untransform_dropdown").change(()=>{
       var selectedValue = $("#character_untransform_dropdown").val();
-      toastr.info('Selected option: ' + selectedValue,"DEBUG");
+      if(selectedValue) {
+        $('#character_untransform_dropdown option[value="' + selectedValue + '"]').remove();
+      }
     })
 
     $("#is_instruct").on("input",(event)=>{
