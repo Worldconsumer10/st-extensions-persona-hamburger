@@ -41,10 +41,10 @@ function onMessageSent(msgID){
         var AIName = context.name2
         var character = context.characters.find(s=>s.name == AIName)
         var description = character.data.description
-
-        console.log(escapeRegExp(description))
-
-        var replacedBody = replaceText(body,escapeRegExp(description),extensionSettings[currentChat].newDescription)
+        
+        // Use simple string replacement without regular expressions
+        var replacedBody = body.replace(description, extensionSettings[currentChat].newDescription);
+        
 
         console.log(replacedBody)
 
