@@ -23,6 +23,8 @@ function onChatChanged(){
   reset()
 }
 function onMessageSent(data){
+  var context = getContext()
+  console.log(context)
   console.log(data)
 }
 
