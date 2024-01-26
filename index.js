@@ -207,6 +207,7 @@ function reset(){
         saveSettingsDebounced();
         $("#character_transformkeyword").text("").val("")
         console.log($("#character_transformkeyword").val())
+        console.log($("#character_transformkeyword").val().split(";;"))
         AppendNewTransformOpt($("#character_transformkeyword").val().split(";;")[0])
       }
     })
