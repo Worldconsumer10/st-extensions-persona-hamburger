@@ -73,8 +73,8 @@ async function loadSettings() {
   $("#transformed_display").text(extensionSettings[currentChat].is_transformed ? "Character Transformed" : "Character Not Transformed")
   $("#transformed_display").attr("style", extensionSettings[currentChat].is_transformed ? "color:green" : "color:red");
 
-  $("#character_transformkeyword").prop("value",extensionSettings[currentChat].transformedAppearance)
-  $("#character_untransformkeyword").prop("value",extensionSettings[currentChat].untransformedAppearance)
+  $("#character_transformkeyword").val(extensionSettings[currentChat].transformedAppearance)
+  $("#character_untransformkeyword").val(extensionSettings[currentChat].untransformedAppearance)
 
 
   if (!isEnabled()){
@@ -102,6 +102,7 @@ function onEnableToggle(event){
   const shouldReset = extensionSettings[currentChat].enabled != isEnabledValue
   extensionSettings[currentChat].enabled=isEnabledValue;
   if (shouldReset){reset()}
+  saveSettingsDebounced();
 }
 
 reset()
@@ -135,13 +136,16 @@ function reset(){
         `The AI will now use the untransformed appearance`,
         "Transformation Reverted"
       )
+      saveSettingsDebounced();
     });
 
     $("#character_transformkeyword").on("input",()=>{
       extensionSettings[currentChat].transformedAppearance = $("#character_transformkeyword").val()
+      saveSettingsDebounced();
     })
     $("#character_untransformkeyword").on("input",()=>{
       extensionSettings[currentChat].untransformedAppearance = $("#character_untransformkeyword").val()
+      saveSettingsDebounced();
     })
 
     loadSettings();
