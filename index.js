@@ -53,8 +53,7 @@ function onMessageSent(msgID){
 
           var history = splitter.reverse()[0]
 
-          console.log("A: ",chatContext)
-          console.log("B: ",description)
+          console.log(chatContext.split(description))
 
         }catch(ex){
           console.error(ex)
