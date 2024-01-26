@@ -58,11 +58,11 @@ function onMessageSent(msgID){
           var hasFinished = false;
           
           originalLines.forEach(entry => {
-            var entryText = entry.replace(context.name2,"{{char}}")
+            const entryText = entry.replace(context.name2,"{{char}}")
             var res = false;
             for (let index = 0; index < characterDescriptionLines.length; index++) {
                 const element = characterDescriptionLines[index];
-                var elementText = element.replace(context.name1,"{{user}}")
+                const elementText = element.replace(context.name1,"{{user}}")
                 if (entry == element || entryText == elementText){
                   res=true;
                   hasntEncountered = false;
