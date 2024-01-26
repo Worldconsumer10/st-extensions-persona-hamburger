@@ -42,6 +42,8 @@ function onMessageSent(msgID){
         var character = context.characters.find(s=>s.name == AIName)
         var description = character.data.description
 
+        console.log(escapeRegExp(description))
+
         var replacedBody = replaceText(body,escapeRegExp(description),extensionSettings[currentChat].newDescription)
 
         console.log(replacedBody)
