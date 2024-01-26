@@ -58,6 +58,19 @@ async function generateInterceptor(){
   setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${selDescription} ${contextBorder[1]}`,0,-1,true)
 }
 
+function AppendNewUnTransformOpt(val){
+  
+  var element = new Option()
+  element.value =val
+  element.innerText = val
+  $("#character_untransform_dropdown").append(element)
+}
+function AppendNewTransformOpt(val){
+  var element = new Option()
+  element.value =val
+  element.innerText = val
+  $("#character_transform_dropdown").append(element)
+}
 function checkKeywordGeneration(){
   if (!isEnabled()){return;}
   const context = getContext();
@@ -104,8 +117,12 @@ async function loadSettings() {
   $("#transformed_display").text(extensionSettings[currentChat].is_transformed ? "Character Transformed" : "Character Not Transformed")
   $("#transformed_display").attr("style", extensionSettings[currentChat].is_transformed ? "color:green" : "color:red");
 
-  $("#character_transformkeyword").val(extensionSettings[currentChat].transformedKeywords)
-  $("#character_untransformkeyword").val(extensionSettings[currentChat].untransformedKeywords)
+  extensionSettings[currentChat].transformedKeywords.split(",").forEach(entry=>{
+    AppendNewTransformOpt(entry.trim())
+  })
+  extensionSettings[currentChat].untransformedKeywords.split(",").forEach(entry=>{
+    AppendNewUnTransformOpt(entry.trim())
+  })
 
   $("#is_instruct").prop("checked",extensionSettings[currentChat].is_strong)
 
@@ -140,6 +157,7 @@ function onEnableToggle(event){
 }
 
 reset()
+
 
 function reset(){
   jQuery(async () => {
@@ -185,10 +203,7 @@ function reset(){
         extensionSettings[currentChat].untransformedKeywords = $("#character_transformkeyword").val()
         saveSettingsDebounced();
         $("#character_transformkeyword").text("").val("")
-        var element = new Option()
-        element.value = $("#character_transformkeyword").val().split(";;")[0]
-        element.text = element.value
-        $("#character_transform_dropdown").append(element)
+        AppendNewTransformOpt($("#character_transformkeyword").val().split(";;")[0])
       }
     })
     $("#character_untransformkeyword").on("input",()=>{
@@ -197,10 +212,7 @@ function reset(){
         extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val()
         saveSettingsDebounced();
         $("#character_untransformkeyword").text("").val("")
-        var element = new Option()
-        element.value = $("#character_untransformkeyword").val().split(";;")[0]
-        element.text = element.value
-        $("#character_untransform_dropdown").append(element)
+        AppendNewUnTransformOpt($("#character_untransformkeyword").val().split(";;")[0])
       }
     })
 
