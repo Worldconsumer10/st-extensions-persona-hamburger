@@ -47,7 +47,8 @@ function onMessageSent(msgID){
 
           var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
 
-          console.log(inputObject.includes(description))
+          var testObject = inputObject.split("***")
+          console.log(testObject)
 
         }catch(ex){
           console.error(ex)
