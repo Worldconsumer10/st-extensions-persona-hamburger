@@ -42,7 +42,7 @@ function onMessageSent(msgID){
         var character = context.characters.find(s=>s.name == AIName)
         var description = character.data.description
 
-        var replacedBody = replaceText(body,Regex.Escape(description),extensionSettings[currentChat].newDescription)
+        var replacedBody = replaceText(body,escapeRegExp(description),extensionSettings[currentChat].newDescription)
 
         console.log(replacedBody)
 
@@ -53,6 +53,9 @@ function onMessageSent(msgID){
     return originalFetch.apply(this, arguments);
   };
 
+}
+function escapeRegExp(pattern) {
+  return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function replaceText(input, searchString, replacement) {
