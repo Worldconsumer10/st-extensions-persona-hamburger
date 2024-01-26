@@ -70,6 +70,8 @@ async function loadSettings() {
   $("#enabled_setting_label").text("Enabled For "+getContext().name2)
   $("#character_prompt_override_setting").val(extensionSettings[currentChat].untransformedAppearance)
   $("#character_transformed_prompt_override_setting").val(extensionSettings[currentChat].transformedAppearance)
+  $("#transformed_display").text(extensionSettings[currentChat].is_transformed ? "Character Transformed" : "Character Not Transformed")
+  $("#transformed_display").attr("style", extensionSettings[currentChat].is_transformed ? "color:green" : "color:red");
 
   if (!isEnabled()){
     $("#chat_id").remove()
@@ -77,6 +79,7 @@ async function loadSettings() {
     $("#character_untransform_field").remove()
     $("#force_revert_transform").remove()
     $("#transformed_display").text("Character Transformation Impossible")
+    $("#transformed_display").attr("style", "color:orange");
   }
 
 }
