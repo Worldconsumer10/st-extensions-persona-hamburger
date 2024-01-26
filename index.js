@@ -63,6 +63,7 @@ function onMessageSent(msgID){
             for (let index = 0; index < characterDescriptionLines.length; index++) {
                 const element = characterDescriptionLines[index];
                 const elementText = parseUserAndChar(context.name1,context.name2,element)
+                console.log(entry,element,entryText,elementText)
                 if (entry == element || entryText == elementText){
                   res=true;
                   hasntEncountered = false;
@@ -85,8 +86,6 @@ function onMessageSent(msgID){
             }
           })
           var assembled = beforeChar + "\n" + newDescription + "\n" + afterChar
-
-          console.log(assembled)
 
         }catch(ex){
           toastr.error(ex)
