@@ -185,6 +185,9 @@ function reset(){
         extensionSettings[currentChat].untransformedKeywords = $("#character_transformkeyword").val()
         saveSettingsDebounced();
         $("#character_transformkeyword").text("").val("")
+        var element = new Option()
+        element.value = $("#character_transformkeyword").val().split(";;")[0]
+        $("#character_transform_dropdown").append(element)
       }
     })
     $("#character_untransformkeyword").on("input",()=>{
@@ -193,6 +196,9 @@ function reset(){
         extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val()
         saveSettingsDebounced();
         $("#character_untransformkeyword").text("").val("")
+        var element = new Option()
+        element.value = $("#character_untransformkeyword").val().split(";;")[0]
+        $("#character_untransform_dropdown").append(element)
       }
     })
 
