@@ -227,13 +227,13 @@ function reset(){
 
     $("#character_transform_dropdown").change(()=>{
       var selectedValue = $("#character_transform_dropdown").val();
-      if(selectedValue) {
+      if(selectedValue && selectedValue != "none") {
         $('#character_transform_dropdown option[value="' + selectedValue + '"]').remove();
       }
     })
     $("#character_untransform_dropdown").change(()=>{
       var selectedValue = $("#character_untransform_dropdown").val();
-      if(selectedValue) {
+      if(selectedValue && selectedValue != "none") {
         $('#character_untransform_dropdown option[value="' + selectedValue + '"]').remove();
       }
     })
