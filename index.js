@@ -40,6 +40,8 @@ async function generateInterceptor(chat){
 
     setExtensionPrompt(EXTENSION_PROMPT_TAG, "[ This is example context ]", -1, 0, true);
 
+    console.log(getContext())
+
   } catch (error) {
     console.error('Transformations: Failed', error);
   }
