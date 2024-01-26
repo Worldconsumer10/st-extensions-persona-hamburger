@@ -92,6 +92,7 @@ async function loadSettings() {
     $("#transformed_display").text("Character Transformation Impossible")
     $("#transformed_display").attr("style", "color:orange");
     $("#character_transformation_keywords").remove()
+    $("#isInstruct").remove()
   }
 
 }
