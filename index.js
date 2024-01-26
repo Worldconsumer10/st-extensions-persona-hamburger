@@ -63,9 +63,8 @@ function onMessageSent(msgID){
             for (let index = 0; index < characterDescriptionLines.length; index++) {
                 const element = characterDescriptionLines[index];
                 var elementText = element.replace(context.name1,"{{user}}")
-                console.log(entryText)
-                console.log(elementText)
                 if (entryText == elementText){
+                  console.log("Result")
                   res=true;
                   hasntEncountered = false;
                   hasFinished=index >= characterDescriptionLines.length-1;
