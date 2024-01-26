@@ -6,6 +6,8 @@ import { saveSettingsDebounced,eventSource,event_types, extension_prompt_types, 
 const defaultSettings = {
   transformedAppearance: "",
   untransformedAppearance: "",
+  transformedKeywords: [],
+  untransformedKeywords: [],
   is_strong: false,
   is_transformed: false,
   enabled: true
@@ -130,8 +132,15 @@ function reset(){
     $("#character_transformed_prompt_override_setting").on("input",onPromptInput)
     $("#enabled_setting").on("input",onEnableToggle)
   
+    if (extensionSettings[currentChat].is_transformed){
+      $("#force_revert_transform").removeAttr("disabled")
+    } else {
+      $("#force_revert_transform").attr("disabled","")
+    }
+
     $("#force_revert_transform").on("click", ()=>{
       extensionSettings[currentChat].is_transformed=false
+      $("#force_revert_transform").attr("disabled","")
       toastr.info(
         `The AI will now use the untransformed appearance`,
         "Transformation Reverted"
@@ -140,11 +149,11 @@ function reset(){
     });
 
     $("#character_transformkeyword").on("input",()=>{
-      extensionSettings[currentChat].transformedAppearance = $("#character_transformkeyword").val()
+      extensionSettings[currentChat].transformedKeywords = $("#character_transformkeyword").val().split(",")
       saveSettingsDebounced();
     })
     $("#character_untransformkeyword").on("input",()=>{
-      extensionSettings[currentChat].untransformedAppearance = $("#character_untransformkeyword").val()
+      extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val().split(",")
       saveSettingsDebounced();
     })
 
