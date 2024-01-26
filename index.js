@@ -33,10 +33,10 @@ async function generateInterceptor(chat){
   var charIndex = characters.findIndex(u=>u.name == appear)
   var character = characters[charIndex]
   console.log(character)
-  var charDEscription = characters.data.description
+  var charDescription = characters.data.description
 
   var contextBorder = extensionSettings[currentChat].is_strong ? strongContext : weakContext
-  setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${} ${contextBorder[1]}`,0,-1,false)
+  setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${charDescription} ${contextBorder[1]}`,0,-1,false)
   console.log("Added Extension Prompt")
 }
 
