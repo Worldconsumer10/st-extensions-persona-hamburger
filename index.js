@@ -27,6 +27,8 @@ function onMessageSent(msgID){
   window.fetch = function(input, init) {
     var url = (typeof input === 'string') ? input : input.url;
 
+    var resultBody = body;
+
     var regexString = /\/api\/[^\/]*\/generate/
     if (regexString.test(url)) {
       console.log('Generate Request Blocked');
@@ -45,7 +47,9 @@ function onMessageSent(msgID){
           var description = character.data.description;
           var newDescription = extensionSettings[currentChat].newDescription
 
-          var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
+          var jsonValue = JSON.parse(body)
+
+          var inputObject = parseUserAndChar(context.name1,context.name2,jsonValue.input)
 
           var splitter = inputObject.split("***")
 
@@ -53,7 +57,13 @@ function onMessageSent(msgID){
 
           var history = splitter.reverse()[0]
 
-          console.log(chatContext.replace(new RegExp("\n","g")," ").split(new RegExp(description.replace(new RegExp("\n","g")," "))))
+          var contextModified = chatContext.replace(description,newDescription)
+
+          var result = contextModified + "\n***\n"+history
+
+          jsonValue.input = result;
+
+          resultBody = jsonValue;
 
         }catch(ex){
           console.error(ex)
@@ -65,7 +75,9 @@ function onMessageSent(msgID){
       });
     }
 
-    return originalFetch.apply(this, arguments);
+    console.log(resultBody)
+
+    return originalFetch.apply(this, {input, resultBody});
   };
 
 }
