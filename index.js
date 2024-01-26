@@ -47,10 +47,7 @@ function onMessageSent(msgID){
 
           var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
 
-          inputObject = inputObject.replace(new RegExp(description, "g"), "[ This is a test context ]");
-
-          console.log("Testing Object");
-          console.log(inputObject);
+          console.log(inputObject)
 
         }catch(ex){
           console.error(ex)
