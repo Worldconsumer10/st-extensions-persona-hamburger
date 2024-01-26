@@ -30,6 +30,7 @@ function onMessageSent(msgID){
     return;
   }
   $("#description_textarea").val(extensionSettings[currentChat].newDescription).trigger("input")
+  $("#description_textarea").val(extensionSettings[currentChat].originalDescription)
 }
 
 
