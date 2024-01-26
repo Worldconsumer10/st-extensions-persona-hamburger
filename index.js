@@ -35,8 +35,10 @@ function onMessageSent(msgID){
   if (!characters[chId] || chId === -1) {
     return;
   }
-  $("#description_textarea").val(extensionSettings[currentChat].newDescription).trigger("input").trigger("onchange")
-  $("#description_textarea").val(extensionSettings[currentChat].originalDescription)
+  if (extensionSettings[currentChat].newDescription.length > 1 && extensionSettings[currentChat].originalDescription.length > 1){
+    $("#description_textarea").val(extensionSettings[currentChat].newDescription).trigger("input").trigger("onchange")
+    $("#description_textarea").val(extensionSettings[currentChat].originalDescription)
+  }
 }
 
 
