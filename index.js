@@ -206,6 +206,7 @@ function reset(){
         extensionSettings[currentChat].transformedKeywords = extensionSettings[currentChat].transformedKeywords + $("#character_transformkeyword").val()
         saveSettingsDebounced();
         $("#character_transformkeyword").text("").val("")
+        console.log($("#character_transformkeyword").val())
         AppendNewTransformOpt($("#character_transformkeyword").val().split(";;")[0])
       }
     })
