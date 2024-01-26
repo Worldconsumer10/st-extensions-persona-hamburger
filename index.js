@@ -1,7 +1,7 @@
 
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
 
-import { saveSettingsDebounced,eventSource,event_types, eventSource, extension_prompt_types, getCurrentChatId, getRequestHeaders, is_send_press, setExtensionPrompt, substituteParams  } from "../../../../script.js";
+import { saveSettingsDebounced,eventSource,event_types, extension_prompt_types, getCurrentChatId, getRequestHeaders, is_send_press, setExtensionPrompt, substituteParams  } from "../../../../script.js";
 
 const defaultSettings = {
   newDescription: ""
