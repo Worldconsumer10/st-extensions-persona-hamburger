@@ -75,6 +75,8 @@ async function loadSettings() {
     $("#chat_id").remove()
     $("#character_transform_field").remove()
     $("#character_untransform_field").remove()
+    $("#force_revert_transform").remove()
+    $("#transformed_display").text("Character Transformation Impossible")
   }
 
 }
