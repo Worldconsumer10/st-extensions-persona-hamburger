@@ -203,18 +203,24 @@ function reset(){
     $("#character_transformkeyword").on("input",()=>{
       var ending = $("#character_transformkeyword").val().endsWith(";;")
       if (ending){
+        var value = $("#character_transformkeyword").val().split(";;")[0]
         extensionSettings[currentChat].transformedKeywords = extensionSettings[currentChat].transformedKeywords + $("#character_transformkeyword").val()
         saveSettingsDebounced();
-        AppendNewTransformOpt($("#character_transformkeyword").val().split(";;")[0])
+        if (value.trim() != ""){
+          AppendNewTransformOpt(value.trim())
+        }
         $("#character_transformkeyword").text("").val("")
       }
     })
     $("#character_untransformkeyword").on("input",()=>{
       var ending = $("#character_untransformkeyword").val().endsWith(";;")
       if (ending){
+        var value = $("#character_untransformkeyword").val().split(";;")[0]
         extensionSettings[currentChat].untransformedKeywords = extensionSettings[currentChat].untransformedKeywords + $("#character_untransformkeyword").val()
         saveSettingsDebounced();
-        AppendNewUnTransformOpt($("#character_untransformkeyword").val().split(";;")[0])
+        if (value.trim() != ""){
+          AppendNewUnTransformOpt(value.trim())
+        }
         $("#character_untransformkeyword").text("").val("")
       }
     })
