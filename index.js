@@ -38,6 +38,7 @@ function onMessageSent(msgID){
         }
 
         try{
+
           var context = getContext();
           var AIName = context.name2;
           var character = context.characters.find(s => s.name == AIName);
@@ -45,13 +46,10 @@ function onMessageSent(msgID){
           
           console.log(description);
           
-          // Custom function for global string replace with multiline support
+          // Custom function for global string replace with literal search
           function replaceAllOccurrences(input, search, replacement) {
-              // Escape special characters in the search string for safe use in a regex
-              const escapedSearchString = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-              
-              // Create a regex pattern with the escaped search string and 'g' flag for global search
-              const regexPattern = new RegExp(escapedSearchString, 'gm');
+              // Create a regex pattern with the search string and 'g' flag for global search, 'm' flag for multiline support
+              const regexPattern = new RegExp(search, 'gm');
               
               return input.replace(regexPattern, replacement);
           }
@@ -71,22 +69,6 @@ function onMessageSent(msgID){
     return originalFetch.apply(this, arguments);
   };
 
-}
-function escapeRegExp(pattern) {
-  return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function replaceText(input, searchString, replacement) {
-  // Escape special characters in the search string for safe use in a regex
-  const escapedSearchString = searchString.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-  
-  // Create a regex pattern with the escaped search string and 'g' flag for global search
-  const regexPattern = new RegExp(escapedSearchString, 'g');
-  
-  // Replace occurrences of the search string with the replacement value
-  const result = input.replace(regexPattern, replacement);
-  
-  return result;
 }
 
 
