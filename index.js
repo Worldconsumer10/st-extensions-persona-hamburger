@@ -44,18 +44,12 @@ function onMessageSent(msgID){
 
         var newDescription = extensionSettings[currentChat].newDescription
 
-        console.log("Description")
-        console.log(description)
-        console.log("New Description")
-        console.log(newDescription)
-        console.log("Body")
-        console.log(body)
+        var bodyInput = JSON.parse(body).input
 
-        // Use simple string replacement without regular expressions
-        var replacedBody = body.replace(description, newDescription);
+        var r = input.replace(description,newDescription)
 
-        console.log("Result")
-        console.log(JSON.parse(replacedBody).input)
+        console.log(r)
+
 
         resolve();
       });
