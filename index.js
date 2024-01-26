@@ -225,6 +225,13 @@ function reset(){
       }
     })
 
+    $("#character_transform_dropdown").on("onchange",()=>{
+      console.log("Option Changed")
+    })
+    $("#character_untransform_dropdown").on("onchange",()=>{
+      console.log("Option Changed")
+    })
+
     $("#is_instruct").on("input",(event)=>{
       const isEnabledValue = Boolean($(event.target).prop("checked"));
       extensionSettings[currentChat].is_strong=isEnabledValue;
