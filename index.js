@@ -22,10 +22,9 @@ function onChatChanged(){
   currentChat = getContext().getCurrentChatId()
   reset()
 }
-function onMessageSent(data){
-  var context = getContext()
-  console.log(context)
-  console.log(data)
+function onMessageSent(msgID){
+  var msg = getContext().chat[msgID]
+  console.log(msg)
 }
 
 
