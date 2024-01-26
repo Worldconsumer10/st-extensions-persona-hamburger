@@ -18,42 +18,12 @@
                 <input id="force_revert_transform" class="menu_button" type="submit" value="Force Transform Reversion" />
             </div>
             <label id="chat_id">Current Chat: UNKNOWN</label>
-            
-            <script>
-                function updateOptions() {
-                    var input = document.getElementById('typedDropdown');
-                    var typedValue = input.value.trim();
-
-                    // Clear existing options
-                    input.innerHTML = '';
-
-                    // Add typed value as an option
-                    if (typedValue !== "") {
-                        var option = document.createElement('option');
-                        option.value = typedValue;
-                        option.text = typedValue;
-                        input.add(option);
-                    }
-
-                    // Add other options (you may load them from a data source)
-                    // For example:
-                    var predefinedValues = ["Option1", "Option2", "Option3"];
-                    for (var i = 0; i < predefinedValues.length; i++) {
-                        var option = document.createElement('option');
-                        option.value = predefinedValues[i];
-                        option.text = predefinedValues[i];
-                        input.add(option);
-                    }
-                }
-            </script>
             <div class="example-extension_block flex-container" id="character_transformation_keywords">
-                <label for="character_transformkeyword">Enter Transform Regex's Or Select one to remove:</label>
-                <select id="character_transformkeyword" multiple="multiple" style="width: 200px;" oninput="updateOptions()">
-                </select>
-                <!-- <label for="character_transformkeyword">Character Transform Keywords</label>
+                <label for="character_transformkeyword">Character Transform Keywords</label>
+                <select for="character_transformkeyword" multiple="multiple" placeholder="Select Value To Remove"><option>None</option></select>
                 <input id="character_transformkeyword" style="background-color: transparent;background: transparent;"/>
                 <label for="character_untransformkeyword">Character Untransform Keywords</label>
-                <input id="character_untransformkeyword" style="background-color: transparent;background: transparent;"/> -->
+                <input id="character_untransformkeyword" style="background-color: transparent;background: transparent;"/>
             </div>
             <div class="example-extension_block flex-container" id="character_transform_field">
                 <label for="character_transformed_prompt_override_setting">Characters Transformed Appearance</label>
