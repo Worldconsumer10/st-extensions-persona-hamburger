@@ -29,8 +29,7 @@ function onMessageSent(msgID){
   if (!characters[chId] || chId === -1) {
     return;
   }
-  var character = characters[chId]
-  character.data.description = extensionSettings[currentChat].newDescription
+  $("#description_textarea").val(extensionSettings[currentChat].newDescription).trigger("input")
 }
 
 
