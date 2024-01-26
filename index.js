@@ -50,6 +50,7 @@ function onMessageSent(msgID){
           console.log(inputObject)
 
         }catch(ex){
+          console.error(ex)
           toastr.error(ex)
         }
 
