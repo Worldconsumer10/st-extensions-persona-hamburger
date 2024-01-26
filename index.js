@@ -29,7 +29,6 @@ function onMessageRecieved(){
 }
 
 function onMessageSent(msgID){
-  $('#send_textarea').val('').trigger('input');
   var msg = getContext().chat[msgID]
   const chId = characters.findIndex((e) => e.name === getContext().name2);
   if (!characters[chId] || chId === -1) {
