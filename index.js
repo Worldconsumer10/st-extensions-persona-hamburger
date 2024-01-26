@@ -229,6 +229,7 @@ function reset(){
       var selectedValue = $("#character_transform_dropdown").val();
       if(selectedValue && selectedValue != "none") {
         $('#character_transform_dropdown option[value="' + selectedValue + '"]').remove();
+        console.log(extensionSettings[currentChat].transformedKeywords)
         extensionSettings[currentChat].transformedKeywords = extensionSettings[currentChat].transformedKeywords.replace(new RegExp(selectedValue+";;","g"),"")
       }
     })
