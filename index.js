@@ -1,7 +1,7 @@
 
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
 
-import { saveSettingsDebounced,eventSource,event_types } from "../../../../script.js";
+import { saveSettingsDebounced,eventSource,event_types,characters } from "../../../../script.js";
 
 const defaultSettings = {
   newDescription: "",
@@ -23,8 +23,14 @@ function onChatChanged(){
   reset()
 }
 function onMessageSent(msgID){
+  $('#send_textarea').val('').trigger('input');
   var msg = getContext().chat[msgID]
-  console.log(msg)
+  const chId = characters.findIndex((e) => e.name === getContext().name2);
+  if (!characters[chId] || chId === -1) {
+    return;
+  }
+  var character = characters[chId]
+  console.log(character)
 }
 
 
