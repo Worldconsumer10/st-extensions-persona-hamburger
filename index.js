@@ -45,49 +45,9 @@ function onMessageSent(msgID){
           var description = character.data.description;
           var newDescription = extensionSettings[currentChat].newDescription
 
-          var inputObject = JSON.parse(body).input
+          var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
 
-          const originalLines = inputObject.split("\n")
-          const characterDescriptionLines = description.split("\n")
-          
-          var beforeChar = ""
-          
-          var afterChar = ""
-
-          var hasntEncountered = true;
-          var hasFinished = false;
-          
-          originalLines.forEach(entry => {
-            const entryText = parseUserAndChar(context.name1,context.name2,entry)
-            var res = false;
-            for (let index = 0; index < characterDescriptionLines.length; index++) {
-                const element = characterDescriptionLines[index];
-                const elementText = parseUserAndChar(context.name1,context.name2,element)
-                if (entry == element || entryText == elementText){
-                  res=true;
-                  hasntEncountered = false;
-                  hasFinished=index >= characterDescriptionLines.length-1;
-                  break;
-                }
-            }
-            if (res){
-            } else if (hasntEncountered) {
-                if (beforeChar == ""){
-                    beforeChar = beforeChar + parseUserAndChar(context.name1,context.name2,entry)
-                } else {
-                    beforeChar = beforeChar + "\n" + parseUserAndChar(context.name1,context.name2,entry)
-                }
-            } else if (hasFinished){
-                if (afterChar == ""){
-                    afterChar = afterChar + parseUserAndChar(context.name1,context.name2,entry)
-                } else {
-                    afterChar = afterChar + "\n" + parseUserAndChar(context.name1,context.name2,entry)
-                }
-            }
-          })
-          var assembled = beforeChar + "\n" + newDescription + "\n" + afterChar
-
-          console.log(assembled)
+          console.log(inputObject)
 
         }catch(ex){
           toastr.error(ex)
@@ -104,9 +64,13 @@ function onMessageSent(msgID){
 }
 
 function parseUserAndChar(userName,charName,string){
-  const a = string.replace(userName,"{{user}}")
-  const b = a.replace(charName,"{{char}}")
-  return b;
+  const patternUser = "{{user}}"
+  const patternChar = "{{char}}"
+
+  var replacedString = string.gsub(inputString, patternUser, userName)
+  replacedString = string.gsub(replacedString, patternChar, charName)
+
+  return replacedString
 }
 
 
