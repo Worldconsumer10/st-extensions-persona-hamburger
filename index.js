@@ -39,7 +39,10 @@ function onMessageSent(msgID){
         }
 
         var context = getContext()
-        console.log(context)
+        var AIName = context.name2
+        var character = context.characters.find(s=>s.name == AIName)
+
+        console.log(character)
 
         resolve();
       });
