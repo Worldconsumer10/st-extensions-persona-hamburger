@@ -27,7 +27,7 @@ function onMessageSent(msgID){
   window.fetch = function(input, init) {
     var url = (typeof input === 'string') ? input : input.url;
 
-    var resultBody = body;
+    var resultBody = init.body;
 
     var regexString = /\/api\/[^\/]*\/generate/
     if (regexString.test(url)) {
@@ -75,9 +75,9 @@ function onMessageSent(msgID){
       });
     }
 
-    console.log(resultBody)
+    init.body = resultBody;
 
-    return originalFetch.apply(this, {input, resultBody});
+    return originalFetch.apply(this, {input, init});
   };
 
 }
