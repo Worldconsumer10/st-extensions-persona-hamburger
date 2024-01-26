@@ -4,8 +4,7 @@ import { extension_settings, getContext, loadExtensionSettings } from "../../../
 import { saveSettingsDebounced,eventSource,event_types,characters } from "../../../../script.js";
 
 const defaultSettings = {
-  newDescription: "",
-  originalDescription: ""
+  newDescription: ""
 };
 
 // Keep track of where your extension is located, name should match repo name
@@ -38,14 +37,14 @@ function onMessageSent(msgID){
           return;
         }
 
-        console.log(body)
-
         var context = getContext()
         var AIName = context.name2
         var character = context.characters.find(s=>s.name == AIName)
         var description = character.data.description
 
-        var regex = new RegExp(ConvertToRegexPattern(description))
+        var replacedBody = replaceText(body,description,extensionSettings[currentChat].newDescription)
+
+        console.log(replacedBody)
 
         resolve();
       });
@@ -54,6 +53,19 @@ function onMessageSent(msgID){
     return originalFetch.apply(this, arguments);
   };
 
+}
+
+function replaceText(input, searchString, replacement) {
+  // Escape special characters in the search string for safe use in a regex
+  const escapedSearchString = searchString.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  
+  // Create a regex pattern with the escaped search string and 'g' flag for global search
+  const regexPattern = new RegExp(escapedSearchString, 'g');
+  
+  // Replace occurrences of the search string with the replacement value
+  const result = input.replace(regexPattern, replacement);
+  
+  return result;
 }
 
 
