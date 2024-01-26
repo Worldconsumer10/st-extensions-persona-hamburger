@@ -67,11 +67,8 @@ function onMessageSent(msgID){
 function parseUserAndChar(userName,charName,string){
   const patternUser = "{{user}}"
   const patternChar = "{{char}}"
-
-  var replacedString = string.gsub(inputString, patternUser, userName)
-  replacedString = string.gsub(replacedString, patternChar, charName)
-
-  return replacedString
+  var replacedString = string.replace(userName+"/g",patternUser)
+  return replacedString.replace(charName+"/g", patternChar)
 }
 
 
