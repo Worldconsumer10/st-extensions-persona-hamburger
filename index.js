@@ -38,11 +38,14 @@ function onMessageSent(msgID){
           return;
         }
 
+        console.log(body)
+
         var context = getContext()
         var AIName = context.name2
         var character = context.characters.find(s=>s.name == AIName)
+        var description = character.data.description
 
-        console.log(character)
+        var regex = new RegExp(ConvertToRegexPattern(description))
 
         resolve();
       });
@@ -53,6 +56,12 @@ function onMessageSent(msgID){
 
 }
 
+
+function ConvertToRegexPattern(input)
+{
+  var escapedInput = Regex.Escape(input);
+  return escapedInput;
+}
 
 async function loadSettings() {
   if (typeof currentChat == "undefined"){return;}
