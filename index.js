@@ -51,8 +51,6 @@ function onMessageSent(msgID){
 
           console.log("Testing Object");
           console.log(inputObject);
-          console.log("New Response");
-          console.log(result);
 
         }catch(ex){
           console.error(ex)
