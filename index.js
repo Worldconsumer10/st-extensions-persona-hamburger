@@ -7,7 +7,8 @@ const defaultSettings = {
   transformedAppearance: "",
   untransformedAppearance: "",
   is_strong: false,
-  is_transformed: false
+  is_transformed: false,
+  enabled: true
 };
 
 // Keep track of where your extension is located, name should match repo name
@@ -20,19 +21,32 @@ var currentChat = getContext().getCurrentChatId();
 
 eventSource.on(event_types.CHAT_CHANGED, onChatChanged);
 
+function isEnabled(){
+  if (typeof currentChat == "undefined")
+  { return false; }
+  return extensionSettings[currentChat].enabled || false
+}
+
 function onChatChanged(){
-  currentChat = getContext().getCurrentChatId()
-  console.log(getContext())
+  var context = getContext()
+  if (typeof context.characterId == "undefined")
+  {
+    currentChat=null;
+    return;
+  }
+  currentChat = context.name2
   reset()
 }
 
 async function generateInterceptor(chat){
+  if (!isEnabled()){return;}
   //Called when a generation is being proccessed
+  var context = getContext()
   var weakContext = ["[","]"]
   var strongContext = ["{","}"]
-  var appear = getContext().name2
+  var appear = context.name2
 
-  var characters = getContext().characters
+  var characters = context.characters
   var charIndex = characters.findIndex(u=>u.name == appear)
   var character = characters[charIndex]
   var charDescription = character.description
@@ -52,16 +66,29 @@ async function loadSettings() {
   if (Object.keys(extensionSettings[currentChat]).length == 0){
     extensionSettings[currentChat] = defaultSettings;
   }
+  $("#enabled_setting").val(extensionSettings[currentChat].enabled)
   $("#character_prompt_override_setting").val(extensionSettings[currentChat].untransformedAppearance)
   $("#character_transformed_prompt_override_setting").val(extensionSettings[currentChat].transformedAppearance)
+
+  if (!extensionSettings[currentChat].enabled){
+    $("#character_prompt_override_setting").remove()
+    $("#character_transformed_prompt_override_setting").remove()
+  }
 
 }
 
 function onPromptInput(){
-  if (typeof currentChat == "undefined"){return;}
+  if (!isEnabled()){return;}
   extensionSettings[currentChat].transformedAppearance = $("#character_transformed_prompt_override_setting").val();
   extensionSettings[currentChat].untransformedAppearance = $("#character_prompt_override_setting").val();
   saveSettingsDebounced();
+}
+
+function onEnableToggle(){
+  if (!isEnabled()){return;}
+  const isEnabled = $("#enabled_setting").val()
+  extensionSettings[currentChat].enabled=isEnabled;
+  reset()
 }
 
 reset()
@@ -87,6 +114,7 @@ function reset(){
   
     $("#character_prompt_override_setting").on("input",onPromptInput)
     $("#character_transformed_prompt_override_setting").on("input",onPromptInput)
+    $("#enabled_setting").on("input",onEnableToggle)
   
     loadSettings();
   });
