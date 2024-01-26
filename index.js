@@ -212,25 +212,15 @@ function reset(){
     $("#clear_transform_keywords").on("click",()=>{
       extensionSettings[currentChat].transformedKeywords = ""
       saveSettingsDebounced()
-      // Get the "None" option
       var noneOption = $('#character_transform_dropdown option[value="none"]');
-
-      // Clear all options
       $('#character_transform_dropdown').empty();
-
-      // Add back the "None" option
       $('#character_transform_dropdown').append(noneOption);
     })
     $("#clear_untransform_keywords").on("click",()=>{
       extensionSettings[currentChat].untransformedKeywords = ""
       saveSettingsDebounced()
-      // Get the "None" option
       var noneOption = $('#character_untransform_dropdown option[value="none"]');
-
-      // Clear all options
       $('#character_untransform_dropdown').empty();
-
-      // Add back the "None" option
       $('#character_untransform_dropdown').append(noneOption);
     })
     $("#character_transformkeyword").on("input",()=>{
