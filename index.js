@@ -38,18 +38,21 @@ function onMessageSent(msgID){
         }
 
         try{
-          var context = getContext()
-          var AIName = context.name2
-          var character = context.characters.find(s=>s.name == AIName)
-          var description = character.data.description
+          var context = getContext();
+          var AIName = context.name2;
+          var character = context.characters.find(s => s.name == AIName);
+          var description = character.data.description;
 
-          var newDescription = extensionSettings[currentChat].newDescription
+          console.log(description);
 
-          var bodyInput = JSON.parse(body).input
+          // Custom function for global string replace
+          function replaceAllOccurrences(input, search, replacement) {
+              return input.split(search).join(replacement);
+          }
 
-          var r = bodyInput.replace(description,newDescription)
+          var replacedBody = replaceAllOccurrences(body, description, extensionSettings[currentChat].newDescription);
 
-          console.log(r)
+          console.log(replacedBody);
         }catch(ex){
           toastr.error(ex)
         }
