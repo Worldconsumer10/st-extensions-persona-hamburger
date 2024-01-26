@@ -70,9 +70,10 @@ async function loadSettings() {
   $("#character_prompt_override_setting").val(extensionSettings[currentChat].untransformedAppearance)
   $("#character_transformed_prompt_override_setting").val(extensionSettings[currentChat].transformedAppearance)
 
-  if (!extensionSettings[currentChat].enabled){
-    $("#character_prompt_override_setting").remove()
-    $("#character_transformed_prompt_override_setting").remove()
+  if (!isEnabled()){
+    $("#chat_id").remove()
+    $("#character_transform_field").remove()
+    $("#character_untransform_field").remove()
   }
 
 }
