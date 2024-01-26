@@ -47,12 +47,12 @@ function onMessageSent(msgID){
 
           var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
 
-          var result = inputObject.replace(new RegExp(description,"g"),"[ This is a test context ]")
+          inputObject = inputObject.replace(new RegExp(description, "g"), "[ This is a test context ]");
 
-          console.log("Testing Object")
-          console.log(inputObject)
-          console.log("New Response")
-          console.log(result)
+          console.log("Testing Object");
+          console.log(inputObject);
+          console.log("New Response");
+          console.log(result);
 
         }catch(ex){
           console.error(ex)
@@ -78,13 +78,6 @@ function parseUserAndChar(userName,charName,string){
 
   var replacedString = string.replace(userNameRegex,patternUser)
   return replacedString.replace(charNameRegex, patternChar)
-}
-
-
-function ConvertToRegexPattern(input)
-{
-  var escapedInput = Regex.Escape(input);
-  return escapedInput;
 }
 
 async function loadSettings() {
