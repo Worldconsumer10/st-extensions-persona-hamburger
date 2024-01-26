@@ -73,8 +73,8 @@ async function loadSettings() {
   $("#transformed_display").text(extensionSettings[currentChat].is_transformed ? "Character Transformed" : "Character Not Transformed")
   $("#transformed_display").attr("style", extensionSettings[currentChat].is_transformed ? "color:green" : "color:red");
 
-  $("#character_transformkeyword").prop("input",extensionSettings[currentChat].transformedAppearance)
-  $("#character_untransformkeyword").prop("input",extensionSettings[currentChat].untransformedAppearance)
+  $("#character_transformkeyword").prop("value",extensionSettings[currentChat].transformedAppearance)
+  $("#character_untransformkeyword").prop("value",extensionSettings[currentChat].untransformedAppearance)
 
 
   if (!isEnabled()){
