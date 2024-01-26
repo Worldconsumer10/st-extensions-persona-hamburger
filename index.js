@@ -59,10 +59,32 @@ async function generateInterceptor(){
 }
 
 function checkKeywordGeneration(){
+  if (!isEnabled()){return;}
   const context = getContext();
   const messageHistory = context.chat
   const recentMessage = messageHistory.reverse()[1] //Gets the message BEFORE the user message
-  console.log(recentMessage)
+  const messageContent = recentMessage.mes
+
+  if (extensionSettings[currentChat].is_transformed){
+    extensionSettings[currentChat].untransformedKeywords.split(",").forEach(transformedKeyword => {
+      const trKeyword = transformedKeyword.trim().toLowerCase()
+      if (messageContent.toLowerCase().includes(trKeyword)){
+        extensionSettings[currentChat.is_transformed] = false
+        reset()
+        return;
+      }
+    });
+  } else {
+    extensionSettings[currentChat].transformedKeywords.split(",").forEach(transformedKeyword => {
+      const trKeyword = transformedKeyword.trim().toLowerCase()
+      if (messageContent.toLowerCase().includes(trKeyword)){
+        extensionSettings[currentChat.is_transformed] = true
+        reset()
+        return;
+      }
+    });
+  }
+
 }
 
 window['transformation_generateInterception'] = generateInterceptor
