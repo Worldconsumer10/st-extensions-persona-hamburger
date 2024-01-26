@@ -86,7 +86,7 @@ function onPromptInput(){
 }
 
 function onEnableToggle(event){
-  if (!isEnabled()){return;}
+  if (typeof currentChat == "undefined"){return;}
   const isEnabledValue = Boolean($(event.target).prop("checked"));
   extensionSettings[currentChat].enabled=isEnabledValue;
   reset()
