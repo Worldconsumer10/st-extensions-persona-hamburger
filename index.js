@@ -64,7 +64,6 @@ function onMessageSent(msgID){
                 const element = characterDescriptionLines[index];
                 const elementText = parseUserAndChar(context.name1,context.name2,element)
                 if (entry == element || entryText == elementText){
-                  console.log("Phrase Complies! "+(entry==element)?entry+" "+element : entryText + " "+elementText)
                   res=true;
                   hasntEncountered = false;
                   hasFinished=index >= characterDescriptionLines.length-1;
@@ -87,6 +86,8 @@ function onMessageSent(msgID){
             }
           })
           var assembled = beforeChar + "\n" + newDescription + "\n" + afterChar
+
+          console.log(assembled)
 
         }catch(ex){
           toastr.error(ex)
