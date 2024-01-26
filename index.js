@@ -58,11 +58,11 @@ function onMessageSent(msgID){
           var hasFinished = false;
           
           originalLines.forEach(entry => {
-            const entryText = entry.replace(context.name2,"{{char}}")
+            const entryText = parseUserAndChar(context.name1,context.name2,entry)
             var res = false;
             for (let index = 0; index < characterDescriptionLines.length; index++) {
                 const element = characterDescriptionLines[index];
-                const elementText = element.replace(context.name1,"{{user}}")
+                const elementText = parseUserAndChar(context.name1,context.name2,element)
                 if (entry == element || entryText == elementText){
                   res=true;
                   hasntEncountered = false;
@@ -72,15 +72,15 @@ function onMessageSent(msgID){
             if (res){
             } else if (hasntEncountered) {
                 if (beforeChar == ""){
-                    beforeChar = beforeChar + entry
+                    beforeChar = beforeChar + parseUserAndChar(context.name1,context.name2,entry)
                 } else {
-                    beforeChar = beforeChar + "\n" + entry
+                    beforeChar = beforeChar + "\n" + parseUserAndChar(context.name1,context.name2,entry)
                 }
             } else if (hasFinished){
                 if (afterChar == ""){
-                    afterChar = afterChar + entry
+                    afterChar = afterChar + parseUserAndChar(context.name1,context.name2,entry)
                 } else {
-                    afterChar = afterChar + "\n" + entry
+                    afterChar = afterChar + "\n" + parseUserAndChar(context.name1,context.name2,entry)
                 }
             }
           })
@@ -100,6 +100,12 @@ function onMessageSent(msgID){
     return originalFetch.apply(this, arguments);
   };
 
+}
+
+function parseUserAndChar(userName,charName,string){
+  const a = string.replace(userName,"{{user}}")
+  const b = a.replace(charName,"{{char}}")
+  return b;
 }
 
 
