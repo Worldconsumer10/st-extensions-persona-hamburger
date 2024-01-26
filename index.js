@@ -63,6 +63,8 @@ function onMessageSent(msgID){
             for (let index = 0; index < characterDescriptionLines.length; index++) {
                 const element = characterDescriptionLines[index];
                 var elementText = element.replace(context.name1,"{{user}}")
+                console.log(entryText)
+                console.log(elementText)
                 if (entryText == elementText){
                   res=true;
                   hasntEncountered = false;
@@ -85,8 +87,6 @@ function onMessageSent(msgID){
             }
           })
           var assembled = beforeChar + "\n" + newDescription + "\n" + afterChar
-
-          console.log(assembled)
 
         }catch(ex){
           toastr.error(ex)
