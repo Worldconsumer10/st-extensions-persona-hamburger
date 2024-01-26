@@ -47,8 +47,13 @@ function onMessageSent(msgID){
 
           var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
 
-          var testObject = inputObject.split("***")
-          console.log(testObject)
+          var splitter = inputObject.split("***")
+
+          var chatContext = testObject[1]
+
+          var history = testObject.reverse()[1]
+
+          console.log(chatContext.includes(description))
 
         }catch(ex){
           console.error(ex)
