@@ -39,7 +39,7 @@ function onMessageSent(msgID){
     var newDesc = extensionSettings[currentChat].newDescription
     var origDesc = extensionSettings[currentChat].originalDescription
     $("#description_textarea").val(newDesc).text(newDesc).trigger("input").trigger("onchange")
-    $("#description_textarea").val(origDesc).text(origDesc)
+    // $("#description_textarea").val(origDesc).text(origDesc)
   }
 }
 
