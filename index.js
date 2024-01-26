@@ -40,7 +40,7 @@ function onChatChanged(){
   reset()
 }
 
-async function generateInterceptor(chat){
+async function generateInterceptor(){
   if (!isEnabled()){return;}
   //Called when a generation is being proccessed
   var context = getContext()
@@ -54,8 +54,11 @@ async function generateInterceptor(chat){
   var charDescription = character.description
   var selDescription = extensionSettings[currentChat].is_transformed ? extensionSettings[currentChat].newDescription : charDescription
   var contextBorder = extensionSettings[currentChat].is_strong ? strongContext : weakContext
-  setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${selDescription} ${contextBorder[1]}`,0,-1,false)
-  console.log("Added Extension Prompt")
+  setExtensionPrompt(extension_prompt_tag,`${contextBorder[0]} ${appear}'s Appearance: ${selDescription} ${contextBorder[1]}`,0,-1,true)
+}
+
+function checkKeywordGeneration(){
+
 }
 
 window['transformation_generateInterception'] = generateInterceptor
@@ -77,6 +80,8 @@ async function loadSettings() {
 
   $("#character_transformkeyword").val(extensionSettings[currentChat].transformedKeywords)
   $("#character_untransformkeyword").val(extensionSettings[currentChat].untransformedKeywords)
+
+  $("#is_instruct").prop("checked",extensionSettings[currentChat].is_strong)
 
 
   if (!isEnabled()){
@@ -156,6 +161,12 @@ function reset(){
       extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val()
       saveSettingsDebounced();
     })
+
+    $("#is_instruct").on("input",(event)=>{
+      const isEnabledValue = Boolean($(event.target).prop("checked"));
+      extensionSettings[currentChat].is_strong=isEnabledValue;
+      saveSettingsDebounced();
+    });
 
     loadSettings();
   });
