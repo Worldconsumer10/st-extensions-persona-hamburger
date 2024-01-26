@@ -29,17 +29,20 @@ function onMessageRecieved(){
 
 function onMessageSent(msgID){
   window.fetch = function(input, init) {
-      var url = (typeof input === 'string') ? input : input.url;
+    var url = (typeof input === 'string') ? input : input.url;
+    var inputObj = (typeof input === 'string') ? null : input;
 
-      if (url === 'http://localhost:8000/api/novelai/generate') {
-          console.log('Request to http://localhost:8000/api/novelai/generate blocked.');
-          return new Promise(function(resolve, reject) {
-              // Return an immediately resolved promise to effectively block the request
-              resolve();
-          });
-      }
+    var regexString = /(http:|https:)\/\/[^\/]*\/api\/[^\/]*(\/generate)/
 
-      return originalFetch.apply(this, arguments);
+    if (regexString.test(url)) {
+      console.log('Generate Request Blocked');
+      return new Promise(function(resolve, reject) {
+        console.log(inputObj)
+        resolve();
+      });
+    }
+
+    return originalFetch.apply(this, arguments);
   };
 
 }
