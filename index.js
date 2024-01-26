@@ -63,11 +63,12 @@ function onMessageSent(msgID){
             for (let index = 0; index < characterDescriptionLines.length; index++) {
                 const element = characterDescriptionLines[index];
                 const elementText = parseUserAndChar(context.name1,context.name2,element)
-                console.log(entry,element,entryText,elementText)
                 if (entry == element || entryText == elementText){
+                  console.log("Compatible")
                   res=true;
                   hasntEncountered = false;
                   hasFinished=index >= characterDescriptionLines.length-1;
+                  return;
                 }
             }
             if (res){
