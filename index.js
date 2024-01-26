@@ -229,12 +229,14 @@ function reset(){
       var selectedValue = $("#character_transform_dropdown").val();
       if(selectedValue && selectedValue != "none") {
         $('#character_transform_dropdown option[value="' + selectedValue + '"]').remove();
+        extensionSettings[currentChat].transformedKeywords = extensionSettings[currentChat].transformedKeywords.replace(new RegExp(selectedValue+";;","g"),"")
       }
     })
     $("#character_untransform_dropdown").change(()=>{
       var selectedValue = $("#character_untransform_dropdown").val();
       if(selectedValue && selectedValue != "none") {
         $('#character_untransform_dropdown option[value="' + selectedValue + '"]').remove();
+        extensionSettings[currentChat].untransformedKeywords = extensionSettings[currentChat].untransformedKeywords.replace(new RegExp(selectedValue+";;","g"),"")
       }
     })
 
