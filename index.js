@@ -49,6 +49,9 @@ function onMessageSent(msgID){
 
           const originalLines = inputObject.split("\n")
           const characterDescriptionLines = description.split("\n")
+
+          console.log(originalLines)
+          console.log(characterDescriptionLines)
           
           var beforeChar = ""
           
