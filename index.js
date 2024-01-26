@@ -54,6 +54,8 @@ function onMessageSent(msgID){
           
           var afterChar = ""
           
+          console.log(context.name1)
+
           var hasntEncountered = true;
           var hasFinished = false;
           
@@ -61,7 +63,10 @@ function onMessageSent(msgID){
               var res = false;
               for (let index = 0; index < characterDescriptionLines.length; index++) {
                   const element = characterDescriptionLines[index];
-                  if (entry.replace(name2,"{{char}}").replace(name1,"{{user}}") == element.replace(name2,"{{char}}").replace(name1,"{{user}}")){
+                  const entryA = entry.replace(context.name2,"{{char}}")
+                  const elementA = element.replace(context.name1,"{{user}}")
+
+                  if (entryA.replace(context.name1,"{{user}}") == elementA.replace(context.name1,"{{user}}")){
                       res=true;
                       hasntEncountered = false;
                       hasFinished=index >= characterDescriptionLines.length-1;
