@@ -179,14 +179,21 @@ function reset(){
       )
       saveSettingsDebounced();
     });
-
-    $("#character_transformkeyword").on("input",()=>{
-      extensionSettings[currentChat].transformedKeywords = $("#character_transformkeyword").val()
-      saveSettingsDebounced();
+    $("#character_transformkeyword").on("onkeydown",(event)=>{
+      const keycode = event.keyCode
+      if (keycode == 13){
+        extensionSettings[currentChat].transformedKeywords = $("#character_transformkeyword").val()
+        saveSettingsDebounced();
+        $("#character_transformkeyword").text("").val("")
+      }
     })
-    $("#character_untransformkeyword").on("input",()=>{
-      extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val()
-      saveSettingsDebounced();
+    $("#character_untransformkeyword").on("onkeydown",(event)=>{
+      const keycode = event.keyCode
+      if (keycode == 13){
+        extensionSettings[currentChat].untransformedKeywords = $("#character_untransformkeyword").val()
+        saveSettingsDebounced();
+        $("#character_untransformkeyword").text("").val("")
+      }
     })
 
     $("#is_instruct").on("input",(event)=>{
