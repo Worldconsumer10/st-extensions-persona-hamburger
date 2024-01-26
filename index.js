@@ -47,10 +47,7 @@ function onMessageSent(msgID){
 
           var inputObject = parseUserAndChar(context.name1,context.name2,JSON.parse(body).input)
 
-          console.log("Description")
-          console.log(description)
-          console.log("Input Object")
-          console.log(inputObject)
+          console.log(inputObject.includes(description))
 
         }catch(ex){
           console.error(ex)
