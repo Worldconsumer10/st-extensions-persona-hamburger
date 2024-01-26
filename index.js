@@ -88,6 +88,7 @@ function checkKeywordGeneration(){
       const trRegex = new RegExp(trKeyword)
       if (trRegex.test(messageContent)){
         extensionSettings[currentChat].is_transformed = false
+        saveSettingsDebounced()
         reset()
         return;
       }
@@ -98,6 +99,7 @@ function checkKeywordGeneration(){
       const trRegex = new RegExp(trKeyword)
       if (trRegex.test(messageContent)){
         extensionSettings[currentChat].is_transformed = true
+        saveSettingsDebounced()
         reset()
         return;
       }
