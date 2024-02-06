@@ -1,6 +1,9 @@
 function loadFramework() {
     $(async()=>{
         var hambDiv = document.createElement("div")
+
+        hambDiv.className = "fa-solid fa-table-cells-large menu_button"
+
         var personaElement = $("#persona-management-block")[0]
         if (typeof personaElement == "undefined"){
             toastr.warn("FAILED","Hamburger could not be added as framework was loaded too early")
