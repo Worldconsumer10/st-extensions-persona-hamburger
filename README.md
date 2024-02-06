@@ -14,7 +14,7 @@
 
 ### Usage
 
-*Explain how to use this extension.*
+*Check index.js*
 
 ## Prerequisites
 
