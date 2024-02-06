@@ -7,8 +7,9 @@ function loadFramework() {
             console.warn("[Hamburger Framework] Loaded too early! Failed to add!")
             return
         }
-        console.log(personaElement)
-        console.log(personaElement.children)
+        var personaTab = personaElement.children[0].children[0]
+        var lastNode = personaTab[personaTab.length-1]
+        personaTab[personaTab.length-1].remove()
         personaElement.children[0].children[0].appendChild(hambDiv)
     });
 }
