@@ -1,15 +1,10 @@
 function loadFramework() {
     $(async()=>{
         var hambDiv = document.createElement("div")
-
-        hambDiv.style = "width:100%;height:auto;max-width:20px"
-
+        hambDiv.style = "width:100%;height:auto;max-width:20px;cursor:pointer"
         var buns = document.createElement("div")
-
         buns.style = "width:100%; height:2px; background-color:white;border-radius:3px;margin-top:3px"
-
         var meat = document.createElement("div")
-
         meat.style = "width:100%; height:2px; background-color:white;margin-top:3px;margin-bottom:3px; border-radius:3px"
 
         var personaElement = $("#persona-management-block")[0]
@@ -30,6 +25,7 @@ function loadFramework() {
         personaTab.appendChild(lastNode)
     });
 }
+
 export {
     loadFramework
 }
