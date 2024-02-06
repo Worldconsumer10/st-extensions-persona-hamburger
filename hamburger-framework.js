@@ -22,9 +22,9 @@ function loadFramework() {
         var lastNode = personaTab.children[personaTab.children.length-1].cloneNode(true)
         personaTab.children[personaTab.children.length-1].remove()
 
-        hambDiv.appendChild(buns)
+        hambDiv.appendChild(buns.cloneNode(true))
         hambDiv.appendChild(meat)
-        hambDiv.appendChild(buns)
+        hambDiv.appendChild(buns.cloneNode(true))
 
         personaTab.appendChild(hambDiv)
         personaTab.appendChild(lastNode)
