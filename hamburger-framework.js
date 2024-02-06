@@ -8,6 +8,7 @@ function loadFramework() {
             return
         }
         console.log(personaElement)
+        console.log(personaElement.childNodes)
         personaElement.childNodes[0].childNodes[0].appendChild(hambDiv)
     });
 }
