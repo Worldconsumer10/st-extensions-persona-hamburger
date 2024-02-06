@@ -1,5 +1,5 @@
 {
-    "display_name": "SillyTavern Transformations Helper",
+    "display_name": "SillyTavern Hamburger Framework",
     "loading_order": 1,
     "requires": [],
     "optional": [],
@@ -7,10 +7,9 @@
     "css": "style.css",
     "author": "Ubunifu",
     "version": "1.0.0",
-    "generate_interceptor": "transformation_generateInterception",
     "permissions": [
         "storage"
     ],
-    "homePage": "https://github.com/Worldconsumer10/st-extension-transformations",
+    "homePage": "https://github.com/Worldconsumer10/st-extension-persona-hamburger.git",
     "auto_update": true
 }
