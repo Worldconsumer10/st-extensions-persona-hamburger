@@ -9,6 +9,7 @@ function loadFramework() {
         }
         var personaTab = personaElement.children[0].children[0]
         var lastNode = personaTab[personaTab.length-1]
+        console.log(personaTab)
         personaTab[personaTab.length-1].remove()
         personaElement.children[0].children[0].appendChild(hambDiv)
     });
