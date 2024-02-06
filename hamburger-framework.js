@@ -1,4 +1,4 @@
-function loadFramework() {
+function lF() {
     jQuery(async()=>{
         var hambDiv = document.createElement("div")
         var personaElement = $("#persona-management-block") = new HTMLDivElement()
@@ -7,5 +7,5 @@ function loadFramework() {
 }
 
 module.exports = {
-    default: loadFramework
+    loadFramework: lF
 }

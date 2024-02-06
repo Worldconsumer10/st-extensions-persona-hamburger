@@ -1,4 +1,4 @@
-import loadFramework from "./hamburger-framework.js"; //This is also required. It is needed to import the functions
+import {loadFramework} from "./hamburger-framework.js"; //This is also required. It is needed to import the functions
 import { extension_settings } from "../../../extensions.js";
 
 import { saveSettingsDebounced } from "../../../../script.js";
