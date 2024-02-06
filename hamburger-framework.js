@@ -2,7 +2,8 @@ function loadFramework() {
     $(async()=>{
         var hambDiv = document.createElement("div")
 
-        hambDiv.className = "fa-solid fa-table-cells-large menu_button"
+        hambDiv.className = "tag showTagList actionable margin-right-10px"
+        hambDiv.style = "background-color: rgba(150, 100, 100, 0.5);"
 
         var personaElement = $("#persona-management-block")[0]
         if (typeof personaElement == "undefined"){
