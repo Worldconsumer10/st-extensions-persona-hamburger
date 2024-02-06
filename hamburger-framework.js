@@ -7,5 +7,5 @@ function loadFramework() {
 }
 
 module.exports = {
-    loadFramework
+    default: loadFramework
 }
