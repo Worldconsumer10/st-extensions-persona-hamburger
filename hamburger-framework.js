@@ -8,7 +8,7 @@ function loadFramework() {
             return
         }
         var personaTab = personaElement.children[0].children[0]
-        var lastNode = personaTab[personaTab.length-1]
+        var lastNode = personaTab[personaTab.length-1].cloneNode(true)
         personaTab.children[personaTab.children.length-1].remove()
         personaTab.appendChild(hambDiv)
         personaTab.appendChild(lastNode)
