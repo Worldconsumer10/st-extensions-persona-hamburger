@@ -11,7 +11,7 @@ const extensionName = "st-extension-persona-hamburger";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 
 function loadSettings(){
-  if (Object.keys(extension_settings[extensionName]).length == 0){
+  if (typeof(extension_settings[extensionName]) == "undefined" || Object.keys(extension_settings[extensionName]).length == 0){
     extension_settings[extensionName] = defaultSettings
     saveSettingsDebounced();
   }
