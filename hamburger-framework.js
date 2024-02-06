@@ -6,4 +6,6 @@ function loadFramework() {
     });
 }
 
-module.exports = loadFramework
+module.exports = {
+    loadFramework
+}
